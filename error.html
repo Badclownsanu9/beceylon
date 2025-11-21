@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Under Development — Be Ceylon</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/beceylonlogo.png?v=2">
+<link rel="shortcut icon" href="/img/beceylonlogo.png?v=2">
+    <meta name="description" content="This page is under development. Explore local experiences on Be Ceylon — book tours, trips, and more.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --cream: #FAF8F3;
+            --leaf-green: #2D5F3F;
+            --light-green: #E8F3ED;
+            --gold: #D4AF37;
+            --text-dark: #2C2C2C;
+            --text-light: #666;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #FAF8F3 0%, #F0EDE5 100%);
+            color: var(--text-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+
+        /* Header */
+        header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--leaf-green);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--leaf-green);
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1100px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+            animation: fadeSlideUp 0.8s ease-out;
+        }
+
+        @keyframes fadeSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-card {
+            background: white;
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 3rem;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        .illustration {
+            text-align: center;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .illustration svg {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+        }
+
+        .content h1 {
+            font-size: 2.5rem;
+            color: var(--leaf-green);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .content p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--leaf-green);
+            color: white;
+            box-shadow: 0 4px 15px rgba(45, 95, 63, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(45, 95, 63, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--leaf-green);
+            border: 2px solid var(--leaf-green);
+        }
+
+        .btn-secondary:hover {
+            background: var(--light-green);
+            transform: translateY(-2px);
+        }
+
+        .contact-link {
+            display: inline-block;
+            margin-top: 1rem;
+            color: var(--text-light);
+            text-decoration: underline;
+            font-size: 0.95rem;
+        }
+
+        .why-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--leaf-green);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* 
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-card {
+                grid-template-columns: 1fr;
+                padding: 2rem;
+                gap: 2rem;
+            }
+
+            .content h1 {
+                font-size: 2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .contact-panel {
+                width: 100%;
+                animation: slideUp 0.22s ease-out;
+            }
+
+            @keyframes slideUp {
+                from { transform: translateY(100%); }
+                to { transform: translateY(0); }
+            }
+
+            .quick-links {
+                grid-template-columns: 1fr;
+            }
+
+            .notify-form {
+                flex-direction: column;
+            }
+
+            .contact-float {
+                bottom: 1rem;
+                right: 1rem;
+            }
+        }
+
+        .btn:focus,
+        .contact-btn:focus,
+        input:focus,
+        button:focus,
+        a:focus {
+            outline: 3px solid var(--gold);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Card -->
+        <div class="hero-card">
+            <div class="illustration">
+                <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Tea Hills Illustration -->
+                    <ellipse cx="150" cy="240" rx="120" ry="15" fill="#E8F3ED" opacity="0.5"/>
+                    <path d="M50 200 Q90 160 130 180 Q170 200 210 170 Q250 140 280 160 L280 240 L50 240 Z" fill="#2D5F3F" opacity="0.3"/>
+                    <path d="M40 220 Q80 190 120 200 Q160 210 200 185 Q240 160 290 180 L290 240 L40 240 Z" fill="#2D5F3F" opacity="0.5"/>
+                    <!-- Construction Tools -->
+                    <rect x="120" y="100" width="60" height="80" rx="5" fill="#FAF8F3" stroke="#2D5F3F" stroke-width="2"/>
+                    <path d="M130 110 L170 110 L165 90 L135 90 Z" fill="#D4AF37"/>
+                    <circle cx="145" cy="140" r="3" fill="#2D5F3F"/>
+                    <circle cx="155" cy="140" r="3" fill="#2D5F3F"/>
+                    <path d="M140 155 Q150 165 160 155" stroke="#2D5F3F" stroke-width="2" fill="none"/>
+                    <!-- Hammer -->
+                    <rect x="195" y="130" width="8" height="50" rx="2" fill="#8B6F47"/>
+                    <rect x="185" y="115" width="28" height="20" rx="3" fill="#666"/>
+                    <!-- Map Pin -->
+                    <path d="M80 120 Q80 100 95 100 Q110 100 110 120 Q110 145 95 160 Q80 145 80 120 Z" fill="#D4AF37"/>
+                    <circle cx="95" cy="117" r="6" fill="white"/>
+                </svg>
+            </div>
+            <div class="content">
+                <h1>We're building something beautiful — coming soon!</h1>
+                <p>This page is currently under development. While we finish it, explore our Experiences or return home to discover the wonders of Ceylon.</p>
+                <div class="cta-buttons">
+                    <a href="experiences.html" class="btn btn-primary" onclick="trackCTA('experiences')">Explore Experiences</a>
+                    <a href="home.html" class="btn btn-secondary" onclick="trackCTA('home')">Back to Home</a>
+                </div>
+                <a href="about.html" class="contact-link" onclick="openContact(event)">Need immediate help? Contact us →</a>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>
