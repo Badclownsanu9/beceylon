@@ -1,1397 +1,403 @@
 <document_content>
 <!doctype html>
-<html lang="en">
+<html lang=en>
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
 <title>Be Ceylon - Experiences</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link rel="icon" type="image/png" sizes="32x32" href="/img/beceylonlogo.png?v=2">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel=stylesheet>
+<link href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css rel=stylesheet>
+<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css>
+<link rel=icon type=image/png sizes=32x32 href="/img/beceylonlogo.png?v=2">
 <link rel="shortcut icon" href="/img/beceylonlogo.png?v=2">
-
-<style>
-  :root{
-    --bg:#f7f9f6;--card:#fff;--ink:#0e1411;--muted:#657069;
-    --leaf:#1e8e5a;--leaf-2:#0e6f47;--gold:#c5a04b;--ring:rgba(30,142,90,.20);
-    --shadow:0 10px 30px rgba(0,0,0,.08);--shadow-2:0 18px 44px rgba(0,0,0,.16)
-  }
-  *{box-sizing:border-box}
-  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;overflow-x:hidden}
-  a{color:inherit;text-decoration:none}
-  img{max-width:100%;display:block}
-  .container{max-width:1200px;margin:0 auto;padding:0 22px}
-  section{padding:64px 0}
-
-  /* NAV */
-  header{position:fixed;z-index:50;top:10px;left:0;right:0;display:flex;justify-content:center}
-  .navwrap{height:70px;display:flex;align-items:center;width:min(1200px,calc(100% - 24px));justify-content:space-between;padding:12px 18px;border-radius:24px;background:rgba(248,246,240,.78);backdrop-filter:blur(12px);box-shadow:0 10px 30px rgba(0,0,0,.08);border:1px solid rgba(0,0,0,.06);transition:.25s transform,.25s box-shadow}
-  .navwrap:hover{transform:translateY(-2px);box-shadow:0 18px 38px rgba(0,0,0,.12)}
-  .nav-logo{
-    width:190px;
-    height:300px;
-    background:url('logo.png') left center / contain no-repeat;
-    display:block;
-    transform:translateY(2px);
-  }
-  nav{display:flex;gap:22px;font-weight:500}
-  nav a{padding:10px 12px;border-radius:999px}
-  nav a:hover{background:rgba(191,161,74,.12)}
-  .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:999px;border:1px solid transparent;font-weight:600;transition:.25s transform,.25s box-shadow,.25s background}
-  .btn:hover{transform:translateY(-2px)}
-  .btn-primary{background:linear-gradient(135deg,var(--leaf-2),#0a3f29);color:#fff;box-shadow:0 8px 20px rgba(14,111,71,.35)}
-  .btn-outline{border:1px solid var(--leaf-2);color:var(--leaf-2);background:#fff}
-
-  /* ===== MOBILE NAV (≤820px) ===== */
-  @media (max-width: 820px){
-    .navwrap{ display:none; }
-    header{ top:8px; }
-
-    .mnav{
-      position:fixed; z-index:60; top:8px; left:8px; right:8px; height:56px;
-      display:flex; align-items:center; justify-content:space-between;
-      padding:0 10px; border-radius:16px;
-      background:rgba(255,255,255,.72);
-      backdrop-filter: blur(10px);
-      border:1px solid rgba(0,0,0,.08);
-      box-shadow:0 12px 30px rgba(0,0,0,.12);
-    }
-    .mnav-logo{
-      width:150px; height:146px;
-      background:url('logo.png') left center / contain no-repeat;
-      display:block;
-    }
-    .mnav-right{ display:flex; align-items:center; gap:8px; }
-
-    .mnav-icon{
-      display:inline-flex; align-items:center; justify-content:center;
-      width:36px; height:36px; border-radius:999px;
-      border:1px solid #0e6f47; background:#fff; text-decoration:none;
-    }
-    .mnav-icon i{ font-size:18px; color:#0e6f47; }
-
-    .mnav-book{
-      padding:9px 14px; border-radius:999px;
-      background:linear-gradient(135deg,#0e6f47,#0a3f29);
-      color:#fff; font-weight:600; text-decoration:none;
-      box-shadow:0 8px 20px rgba(14,111,71,.35);
-    }
-
-    .mnav-burger{
-      margin-left:4px; width:38px; height:38px;
-      border-radius:12px; border:1px solid rgba(0,0,0,.12);
-      background:#fff; display:inline-grid; place-content:center; gap:4px;
-    }
-    .mnav-burger span{
-      display:block; width:18px; height:2px; background:#0e6f47; border-radius:2px;
-    }
-
-    .mnav-drawer{
-      position:fixed; z-index:59; top:70px; left:8px; right:8px;
-      background:#fff; border:1px solid rgba(0,0,0,.10);
-      border-radius:16px; box-shadow:0 24px 50px rgba(0,0,0,.18);
-      padding:12px; display:flex; flex-direction:column; gap:6px;
-      transform:translateY(-8px); opacity:0; pointer-events:none; transition:.25s ease;
-    }
-    .mnav-drawer a{
-      padding:12px 14px; border-radius:12px; text-decoration:none; color:#0f1613; font-weight:600;
-    }
-    .mnav-drawer a:active{ background:#f2f5f1; }
-
-    .mnav-scrim{
-      position:fixed; inset:0; background:rgba(0,0,0,.15);
-      z-index:58; opacity:0; pointer-events:none; transition:.25s;
-    }
-
-    .mnav-drawer[data-open="true"]{ opacity:1; transform:translateY(0); pointer-events:auto; }
-    .mnav-scrim[data-open="true"]{ opacity:1; pointer-events:auto; }
-  }
-
-  @media (min-width: 821px){
-    .mnav, .mnav-drawer, .mnav-scrim{ display:none !important; }
-  }
-
-  /* ===== BeCeylon Footer (exact copy) ===== */
-  #footer-beceylon{background-color:#121212;color:#a0a0a0;font-size:15px;line-height:1.6}
-  #footer-beceylon .container{max-width:1180px;margin:0 auto;padding:0 22px}
-  .footer-main{padding:28px 0}
-  .footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px}
-  #footer-beceylon .footer-col{display:flex;flex-direction:column;gap:8px}
-  .footer-col h4{font-size:18px;color:#fff;margin:0 0 16px;font-weight:600}
-  #footer-beceylon .footer-logo{max-width:120px;margin:0 0 6px 0;display:block}
-  #footer-beceylon .footer-tagline{max-width:340px;line-height:1.5}
-  .footer-logo-tight{height:48px;width:auto;display:block;margin:0}
-  .footer-links{list-style:none;padding:0;margin:0;display:grid;gap:12px}
-  .footer-links a{color:#a0a0a0;text-decoration:none;transition:color .2s ease}
-  .footer-links a:hover{color:var(--gold,#BFA14A)}
-  .contact-info i{margin-right:12px;width:16px;text-align:center}
-  .footer-social{display:flex;gap:16px}
-  .footer-social a{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:#2b2b2b;color:#fff;font-size:16px;transition:background-color .2s ease,transform .2s ease}
-  .footer-social a:hover{background:var(--gold,#BFA14A);color:#111;transform:translateY(-3px)}
-  .footer-cta-wrap{background:#1a1a1a;padding:20px 0;border-top:2px solid var(--gold,#BFA14A)}
-  .footer-cta{display:flex;justify-content:space-between;align-items:center;gap:32px}
-  .footer-cta .cta-text h3{font-size:24px;font-weight:700;color:#fff;margin:0 0 8px}
-  .footer-cta .cta-text p{margin:0;max-width:450px}
-  .cta-form{display:flex;min-width:400px;background:#2b2b2b;border-radius:999px;padding:6px;border:1px solid #444}
-  .cta-form input{flex-grow:1;border:none;background:transparent;outline:0;color:#fff;font-size:15px;padding:0 20px}
-  .cta-form button{display:inline-flex;align-items:center;gap:10px;border:none;border-radius:999px;background:var(--gold,#BFA14A);color:#111;font-weight:700;padding:10px 20px;cursor:pointer;transition:transform .2s,box-shadow .2s}
-  .cta-form button:hover{transform:scale(1.05);box-shadow:0 8px 20px rgba(191,161,74,.25)}
-  .footer-bottom{padding:14px 0;border-top:1px solid #333}
-  .footer-bottom p{margin:0;text-align:center;font-size:13px;color:#777}
-  @media (max-width:980px){.footer-cta{flex-direction:column;align-items:flex-start;text-align:left}.cta-form{min-width:0;width:100%}}
-  @media (max-width:768px){.footer-grid{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}}
-
-      /* Experiences */
-    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px}
-    .card{grid-column:span 4;background:var(--card);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:transform .25s, box-shadow .25s}
-    .card:hover{transform:translateY(-6px);box-shadow:0 18px 50px rgba(0,0,0,.15)}
-    .card-media{aspect-ratio:16/10;background:#ddd;position:relative}
-    .badge{position:absolute;bottom:12px;left:12px;background:rgba(0,0,0,.75);color:#fff;padding:6px 10px;border-radius:999px;font-size:.8rem}
-    .card-body{padding:16px 16px 18px}
-    .card h4{margin:0 0 6px}
-    .card .meta{color:var(--muted);font-size:.92rem}
-    
-/* rating (reuses same stars system from experiences) */
-.pkg .rating{ display:flex; align-items:center; gap:10px; margin-top:6px; }
-.stars{
-  --rating: 4; --size: 18px; --star-color: #d9d9d9; --star-fill: var(--gold);
-  position:relative; font-size:var(--size); line-height:1; letter-spacing:2px;
-}
-.stars::before{ content:"★★★★★"; color:var(--star-color); }
-.stars::after{
-  content:"★★★★★"; position:absolute; left:0; top:0;
-  width: calc(var(--rating) / 5 * 100%); overflow:hidden; color:var(--star-fill); white-space:nowrap;
-}
-.rating .count{ color:#7c8a83; font-weight:600; font-size:.9rem; }
-
-/* footer with Learn More button */
-.pkg-foot{ display:flex; align-items:center; justify-content:space-between; padding:0 16px 16px; margin-top:auto; }
-/* Learn More button — fixed background */
-.btn-learn{
-  display:inline-flex; align-items:center; gap:10px;
-  padding:12px 18px; border-radius:999px; border:none; cursor:pointer;
-  background: linear-gradient(135deg, var(--leaf-2), #0a3f29);
-  color:#fff; font-weight:700;
-  box-shadow: 0 10px 20px rgba(59,77,58,.25); transition: transform .15s;
-}
-
-.btn-learn:hover{ transform: translateY(-1px); }
-
-/* --- Experiences: new card style --- */
-.card.ex { 
-  grid-column: span 4;
-  position: relative; 
-  background: #fff; border-radius: 18px; overflow: hidden;
-  box-shadow: 0 10px 26px rgba(0,0,0,.08);
-  display:flex; flex-direction:column;
-}
-.ex .ex-head{
-  height: 270px;           /* image/gradient strip */
-  background: linear-gradient(135deg, #33433a, #bfa14a);
-}
-.ex .ex-body{ padding: 22px; }
-.ex .ex-title{ margin:0 0 6px; font-size: 1.25rem; color: var(--green); }
-.ex .ex-desc{ margin:2px 0 12px; color: #7a6a62; }
-.ex .ex-meta{ color:#6e7b73; font-size:.95rem; margin-bottom:10px; }
-
-.ex .tags{ display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 16px; }
-.ex .tag{
-  display:inline-block; padding:6px 10px; border-radius:999px;
-  background:#efede3; color:#6b6a5e; font-weight:600; font-size:.83rem;
-}
-
-.ex .ex-foot{ display:flex; align-items:center; justify-content:space-between; margin-top:auto; padding:0 22px 22px; }
-.ex .btn-learn{
-  display:inline-flex; align-items:center; gap:10px;
-  padding:12px 18px; border-radius:999px; border:none; cursor:pointer;
-  background: linear-gradient(135deg, var(--leaf-2), #0a3f29);
-  color:#fff; font-weight:700;
-  box-shadow: 0 10px 20px rgba(59,77,58,.25);
-}
-
-.ex .btn-learn:hover{ transform: translateY(-1px); }
-
-.rating{display:flex; align-items:center; gap:10px;}
-.stars{
-  --rating: 4;             /* JS overrides this per card */
-  --size: 18px;
-  --star-color: #d9d9d9;
-  --star-fill: var(--gold);
-  position:relative; font-size:var(--size); line-height:1; letter-spacing:2px; 
-}
-.stars::before{
-  content:"★★★★★"; color:var(--star-color);
-}
-.stars::after{
-  content:"★★★★★"; position:absolute; left:0; top:0; width: calc(var(--rating) / 5 * 100%);
-  overflow:hidden; color:var(--star-fill); white-space:nowrap;
-}
-.rating .count{color:#7c8a83; font-weight:600; font-size:.9rem;}
-
-/* badge for duration/location */
-.badge-dark{
-  display:inline-block; padding:6px 10px; border-radius:999px;
-  background:#28342e; color:#fff; font-size:.8rem; font-weight:700;
-  position:absolute; left:12px; top:230px; /* sits on the bottom of the strip */
-}
-    .cta{background:linear-gradient(120deg, rgba(59,77,58,.10), rgba(191,161,74,.12));border-radius:24px;padding:28px;box-shadow:var(--shadow);text-align:center}
-
-.footer-cta .cta-text h3 {
-  font-size: 24px;
-  font-weight: 700;
-  color: #ffffff;
-  margin: 0 0 8px;
-}
-
-.cta-form button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 20px rgba(191, 161, 74, 0.25);
-}
-.hero, .site-header, .section, .container, .site-footer, #footerBeceylon {
-  width: 100%;         /* never 100vw */
-  max-width: 100%;
-}
-    /* Sections */
-    section{padding:64px 22px}
-    .container{max-width:1180px;margin:0 auto}
-    .section-title{font-size:clamp(24px,3.6vw,36px);margin:0 0 10px}
-    .section-sub{color:var(--muted);max-width:820px}
-    /* ---------- Experience Hero styles (scoped) ---------- */
-.exp-hero {
-  position: relative;
-  min-height: 78vh;
-  display: flex;
-  align-items: center;
-  padding: 90px 0;
-  overflow: visible;
-  background: linear-gradient(180deg, rgba(230,240,232,0.06), transparent 45%);
-  border-bottom: 1px solid rgba(14,111,71,0.03);
-}
-
-.exp-hero-bg { position:absolute; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
-.exp-waves { position:absolute; bottom:-10%; left:0; width:160%; height:45%; transform:translateX(-10%); }
-#expParticleCanvas { position:absolute; inset:0; z-index:0; }
-
-.exp-hero-inner { position:relative; z-index:2; display:grid; grid-template-columns:1fr 520px; gap:48px; align-items:center; padding:0 18px; }
-@media (max-width:980px) { .exp-hero-inner { grid-template-columns:1fr; } }
-
-.exp-eyebrow { display:inline-block; padding:8px 14px; border-radius:999px; background:rgba(14,111,71,0.08); color:var(--leaf-2); font-weight:700; font-size:13px; margin-bottom:20px; letter-spacing:0.3px; }
-
-.exp-title { font-family:'Playfair Display', serif; font-size:48px; line-height:1.05; margin:0 0 18px; color:var(--ink); }
-.exp-title .exp-highlight { background:linear-gradient(90deg,var(--leaf-2),var(--leaf)); -webkit-background-clip:text; background-clip:text; color:transparent; }
-
-.exp-subtitle { font-size:18px; color:var(--muted); margin-bottom:52px; min-height:42px; }
-
-.exp-cta { display:flex; gap:14px; margin-bottom:18px; }
-.exp-btn { position:relative; overflow:hidden; }
-.exp-ghost { border:1px solid rgba(14,111,71,0.12); }
-
-.exp-features { display:flex; gap:18px; list-style:none; padding:0; margin:0; color:var(--muted); font-weight:600; font-size:14px; margin-top:8px; }
-.exp-features li { background:rgba(255,255,255,0.5); padding:8px 12px; border-radius:999px; box-shadow:0 8px 30px rgba(14,111,71,0.03); }
-
-.exp-hero-right { display:flex; justify-content:flex-end; align-items:center; }
-
-.exp-image-stack { position:relative; width:520px; height:360px; display:block; }
-@media (max-width:980px) { .exp-image-stack { width:100%; height:320px; margin-top:18px; } }
-
-.img-card { position:absolute; border-radius:18px; overflow:hidden; box-shadow:0 30px 80px rgba(0,0,0,0.12); background:#eee; transform-origin:center; transition:transform .6s cubic-bezier(.2,.9,.2,1), box-shadow .3s; }
-.img-card img { width:100%; height:100%; object-fit:cover; display:block; transform:translateZ(0); }
-
-.img-large { width:100%; height:100%; left:0; top:0; border-radius:20px; }
-.img-small { width:46%; height:46%; right:8%; box-shadow:0 18px 60px rgba(0,0,0,0.18); }
-.img-1 { top:-6%; transform:rotate(-5deg) translateZ(0); }
-.img-2 { bottom:-8%; right:-6%; transform:rotate(6deg) translateZ(0); }
-
-.exp-badge { position:absolute; left:18px; bottom:-16px; background:linear-gradient(135deg,#fff,rgba(250,250,250,0.9)); padding:12px 16px; border-radius:999px; display:flex; gap:10px; align-items:center; box-shadow:0 18px 60px rgba(14,111,71,0.08); transform:translateY(6px); transition:transform .5s ease; }
-.badge-icon { width:44px; height:44px; border-radius:12px; display:grid; place-items:center; background:linear-gradient(135deg,var(--leaf-2),var(--leaf)); color:#fff; font-size:18px; }
-.exp-badge small { display:block; color:var(--muted); font-size:12px; margin-top:2px; }
-
-/* hover / interaction */
-.exp-image-stack:hover .img-large { transform:scale(1.02) rotate(-1deg); }
-.img-card:hover { transform:translateY(-8px) scale(1.03); box-shadow:0 36px 120px rgba(0,0,0,0.22); z-index:6; }
-
-/* typewriter caret */
-.exp-subtitle .caret { display:inline-block; width:2px; height:1.1em; background:var(--leaf-2); margin-left:6px; vertical-align:middle; animation:blink 1s steps(1) infinite; }
-@keyframes blink { 50% { opacity:0 } }
-
-/* === REPLACEMENT: mobile (phones) - keep all 3 photos + badge, scaled & overlapping === */
-@media (max-width:640px) {
-  /* title smaller but still prominent */
-  .exp-title { font-size:24px; line-height:1.04; margin-bottom:8px; }
-
-  /* make stack slightly taller to accommodate overlap on phones */
-  .exp-image-stack {
-    width: calc(100% - 12px);
-    height: 300px;            /* enough room for overlap like desktop */
-    margin: 8px auto 0;
-    position: relative;
-    display:block;
-    overflow: visible;
-  }
-
-  /* base card styling scaled for phone */
-  .img-card {
-    border-radius:14px;
-    overflow:hidden;
-    box-shadow:0 20px 60px rgba(0,0,0,0.14);
-    position:absolute;
-    transition:transform .45s ease, box-shadow .25s ease;
-    will-change: transform;
-  }
-
-  /* large background card fills the stack area */
-  .img-large {
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    transform: rotate(-2deg) scale(1) !important;
-    z-index: 10;
-    border-radius:16px;
-  }
-
-  /* small card 1 (top-right rotated) — scaled/positioned similar to desktop */
-  .img-small.img-1 {
-    width: 58%;
-    height: 48%;
-    right: 6%;
-    top: -6%;
-    transform: rotate(-6deg);
-    z-index: 22;
-    border-radius:14px;
-  }
-
-  /* small card 2 (bottom-right rotated) */
-  .img-small.img-2 {
-    width: 52%;
-    height: 50%;
-    right: -2%;
-    bottom: -8%;
-    transform: rotate(6deg);
-    z-index: 18;
-    border-radius:14px;
-  }
-
-  /* ensure images keep aspect and fill their containers */
-  .img-card img { width:100%; height:100%; object-fit:cover; display:block; }
-
-  /* keep Locally Curated badge visible and inside stack */
-  .exp-badge {
-    position:absolute;
-    left: 12px;
-    bottom: 12px;
-    transform:none;
-    z-index: 30;
-    box-shadow:0 14px 40px rgba(14,111,71,0.09);
-    padding:10px 14px;
-    border-radius:999px;
-    display:flex;
-    gap:10px;
-    align-items:center;
-    background:linear-gradient(135deg,#fff,rgba(255,255,255,0.95));
-  }
-  
-  /* reduce particle complexity on phones for readability */
-  #expParticleCanvas { display:none !important; }
-
-  /* preserve hero spacing so fixed nav doesn't overlap the hero on mobile */
-  .exp-hero { padding-top: 72px; padding-bottom: 22px; min-height:58vh; }
-
-  /* touch-friendly: reduce hover effects on phones */
-  .img-card:hover { transform:none; box-shadow:0 20px 60px rgba(0,0,0,0.14); }
-  /* --- Replace or add these lines inside your @media (max-width:640px) block --- */
-
-/* reduce title width so it wraps earlier and forces "Adventures" to next line on phones */
-.exp-title {
-  max-width: calc(100% - 72px); /* restrict width so line-break happens earlier */
-  font-size: 24px;
-  line-height: 1.06;
-  word-break: normal;
-  white-space: normal;
-  margin-right: 0;
-}
-
-}
-
-/* accessibility focus */
-.exp-cta .btn:focus { outline:3px solid rgba(30,142,90,0.16); outline-offset:3px; }
-
-/* Ensure canvas sits below images */
-#expParticleCanvas { z-index:0; }
-/* ===== Hero spacing + full-desktop-fit overrides ===== */
-
-/* If your navbar is fixed, set the selector below to match it (e.g. .site-nav, header.navbar) */
-:root {
-  --be-nav-selector: ".site-nav"; /* <--- change only if your nav uses a different selector */
-  --hero-desktop-offset: 40px;    /* extra gap under nav on desktop */
-}
-
-/* add a comfortable gap under the nav and make hero fit viewport on desktop */
-.exp-hero {
-  /* default fallback spacing */
-  margin-top: 28px;                /* space between nav and hero when nav isn't fixed */
-  min-height: 78vh;                /* keeps good size on small screens */
-  padding-top: 40px;               /* internal top breathing room */
-  padding-bottom: 56px;            /* internal bottom breathing room */
-  box-sizing: border-box;
-  overflow: hidden;
-}
-
-/* Larger, centered layout on desktop: hero takes the full available viewport minus nav + offset */
-@media (min-width: 980px) {
-  .exp-hero {
-    /* will be overwritten by JS if the nav is fixed; safe fallback: full viewport minus default offset */
-    height: calc(100vh - var(--hero-desktop-offset));
-    min-height: calc(720px);       /* ensure minimum visual size on wide screens */
-    display: flex;
-    align-items: center;
-    margin-top: 18px;              /* small outer gap when nav present */
-    padding-top: 48px;
-    padding-bottom: 48px;
-  }
-
-  /* give more breathing room between left content and image stack */
-  .exp-hero-inner { grid-template-columns: 1fr 560px; gap: 64px; align-items: center; }
-
-  /* increase left column padding and spacing */
-  .exp-hero-left { padding-right: 12px; }
-  .exp-title { font-size: 56px; line-height: 1.02; margin-bottom: 22px; }
-
-  /* enlarge image stack and create internal spacing inside it */
-  .exp-image-stack { width: 560px; height: 420px; }
-  .img-large { border-radius:24px; box-shadow:0 40px 120px rgba(0,0,0,0.12); }
-  .img-small { width:48%; height:48%; right:6%; box-shadow:0 22px 70px rgba(0,0,0,0.18); }
-
-  /* move badge a bit inside so it doesn't overflow visually */
-  .exp-badge { left: 18px; bottom: 8px; transform: translateY(0); }
-}
-
-/* add extra vertical spacing between hero's internal blocks on mobile */
-@media (max-width:979px) {
-  .exp-hero-inner { gap: 30px; padding: 14px; }
-  .exp-title { font-size: 30px; }
-  .exp-cta { margin-top: 14px; }
-}
-
-/* subtle additional spacing for items inside the hero (buttons, features) */
-.exp-cta { gap: 16px; margin-bottom: 22px; }
-.exp-features { gap: 14px; margin-top: 18px; }
-
-/* ensure the canvas and waves don't push layout - keep them purely decorative */
-.exp-hero-bg { pointer-events: none; }
-#expParticleCanvas { position:absolute; inset:0; z-index:0; display:block; }
-
-/* Accessibility: keep hero content readable when scaled */
-@media (prefers-reduced-motion: reduce) {
-  .exp-image-stack, .img-card { transition:none !important; animation:none !important; }
-  .exp-subtitle .caret { display:none; }
-}
-/* === ADD / REPLACE: Mobile (phones) experiences layout: single-column stacked cards === */
-@media (max-width: 640px) {
-  /* Make the experiences grid single column (one card per row) */
-  .grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;               /* vertical gap between cards */
-    margin: 0;
-  }
-
-  /* Ensure cards span full width and stack vertically */
-  .card {
-    grid-column: auto !important;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    border-radius: 14px;
-    overflow: hidden;
-    box-shadow: 0 12px 36px rgba(0,0,0,0.10);
-    transition: transform .18s ease, box-shadow .18s ease;
-  }
-
-  .card:hover { transform: none; box-shadow: 0 14px 38px rgba(0,0,0,0.11); }
-
-  /* enlarge the image strip on phones to look like your screenshot */
-  .ex .ex-head,
-  .card-media {
-    height: 220px;           /* comfortable tall strip on mobile */
-    background-position: center;
-  }
-
-  /* reposition the dark badge that sits on top of the strip */
-  .badge-dark {
-    position: absolute;
-    left: 12px;
-    top: calc(220px - 42px); /* sits near bottom of image strip */
-    z-index: 22;
-    padding: 6px 10px;
-    border-radius: 999px;
-    font-weight:700;
-    box-shadow: 0 8px 22px rgba(0,0,0,0.12);
-  }
-
-  /* card body spacing adjusted for mobile */
-  .ex .ex-body {
-    padding: 14px 14px 16px;
-  }
-
-  .ex .ex-title { font-size: 1.05rem; margin-bottom:6px; line-height:1.18; }
-  .ex .ex-desc { font-size: .95rem; color:#7a6a62; margin-bottom:8px; }
-  .ex .ex-meta { font-size: .9rem; color:var(--muted); margin-bottom:8px; }
-
-  /* tags wrap nicely under description */
-  .ex .tags { gap:8px; margin-top:8px; }
-
-  /* move footer buttons / rating stacked and roomy */
-  .ex .ex-foot { flex-direction: row; align-items:center; gap:10px; padding: 12px 14px 16px; }
-  .rating .count { font-size:.92rem; }
-
-  /* ensure CTA (Learn More) doesn't overflow on small widths */
-  .ex .btn-learn { padding:10px 14px; font-size:14px; border-radius:12px; }
-
-  /* keep some breathing room under the experiences section for scrolling */
-  #experiences { padding-bottom: 20px; }
-}
-/* WhatsApp float — container */
-.wa{
-  position:fixed;
-  right:max(16px, env(safe-area-inset-right));
-  bottom:max(18px, env(safe-area-inset-bottom));
-  z-index:9999;
-  background:transparent !important;
-  border:0 !important;
-  box-shadow:none !important;
-  pointer-events:none; /* container invisible; children receive events */
-}
-
-/* Floating round button */
-.wa .fab{
-  pointer-events:auto;
-  position:relative;
-  width:60px; height:60px;
-  border-radius:50%;
-  display:grid; place-items:center;
-  color:#fff; font-size:26px;
-  background:
-    radial-gradient(120% 120% at 30% 30%, #39e07a 0%, #25d366 60%, #10b960 100%),
-    conic-gradient(from 200deg at 50% 50%, #1ccf67, #25d366, #1ccf67);
-  box-shadow: 0 14px 30px rgba(37,211,102,0.38), inset 0 2px 0 rgba(255,255,255,0.12);
-  border:0;
-  cursor:pointer;
-  transition: transform .18s ease, box-shadow .18s ease;
-  animation: waBreath 3s ease-in-out infinite;
-}
-
-/* Glow / sheen (purely decorative) */
-.wa .fab::before,
-.wa .fab::after{
-  content:"";
-  position:absolute; inset:0;
-  border-radius:50%;
-  pointer-events:none;
-}
-.wa .fab::before{
-  inset:-4px;
-  background:radial-gradient(60% 60% at 50% 50%, rgba(37,211,102,0.45), transparent 70%);
-  filter:blur(6px);
-  opacity:.55;
-  animation: waPulse 2.8s ease-out infinite;
-}
-.wa .fab::after{
-  background:linear-gradient(120deg, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0) 28% 72%, rgba(255,255,255,0.45) 100%);
-  mix-blend-mode:screen;
-  background-size:300% 100%;
-  background-position:-150% 0;
-  animation: waSheenPos 2.8s ease-in-out infinite;
-  clip-path:circle(50% at 50% 50%);
-}
-
-/* Panel next to bubble (hidden by default) */
-.wa .panel{
-  position:absolute;
-  right:70px;
-  bottom:4px;
-  width:min(320px, 90vw);
-  background:#fff;
-  border-radius:16px;
-  border:1px solid rgba(0,0,0,0.08);
-  box-shadow:0 18px 44px rgba(0,0,0,0.18);
-  display:none;
-  visibility:hidden;
-  opacity:0;
-  pointer-events:none;
-  transition:opacity .18s ease, transform .18s ease, visibility .18s;
-  transform:translateY(6px);
-}
-.wa.open .panel{
-  display:block;
-  visibility:visible;
-  opacity:1;
-  pointer-events:auto;
-  transform:none;
-}
-
-.wa .panel header{
-  margin:0;
-  background:#0e6f47;
-  color:#fff;
-  border-radius:16px 16px 0 0;
-  padding:12px 14px;
-  font-weight:600;
-}
-.wa .panel .body{ padding:12px; }
-
-.wa .chip{
-  display:inline-flex;
-  gap:8px;
-  align-items:center;
-  background:#f3fbf6;
-  color:#0e6f47;
-  border:1px dashed #bde8cf;
-  border-radius:999px;
-  padding:6px 10px;
-  margin:6px 6px 0 0;
-  text-decoration:none;
-  font-weight:600;
-  font-size:0.92rem;
-}
-
-/* small animations */
-@keyframes waBreath{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
-@keyframes waPulse{0%{opacity:0; transform:scale(.86)}50%{opacity:.55}100%{opacity:0; transform:scale(1.15)}}
-@keyframes waSheenPos{0%,60%{background-position:-150% 0}85%,100%{background-position:150% 0}}
-
-</style>
+<style>:root{--bg:#f7f9f6;--card:#fff;--ink:#0e1411;--muted:#657069;--leaf:#1e8e5a;--leaf-2:#0e6f47;--gold:#c5a04b;--ring:rgba(30,142,90,.20);--shadow:0 10px 30px rgba(0,0,0,.08);--shadow-2:0 18px 44px rgba(0,0,0,.16)}*{box-sizing:border-box}body,html{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;overflow-x:hidden}a{color:inherit;text-decoration:none}img{max-width:100%;display:block}.container{max-width:1200px;margin:0 auto;padding:0 22px}section{padding:64px 0}header{position:fixed;z-index:50;top:10px;left:0;right:0;display:flex;justify-content:center}.navwrap{height:70px;display:flex;align-items:center;width:min(1200px,calc(100% - 24px));justify-content:space-between;padding:12px 18px;border-radius:24px;background:rgba(248,246,240,.78);backdrop-filter:blur(12px);box-shadow:0 10px 30px rgba(0,0,0,.08);border:1px solid rgba(0,0,0,.06);transition:.25s transform,.25s box-shadow}.navwrap:hover{transform:translateY(-2px);box-shadow:0 18px 38px rgba(0,0,0,.12)}.nav-logo{width:190px;height:300px;background:url('logo.png') left center/contain no-repeat;display:block;transform:translateY(2px)}nav{display:flex;gap:22px;font-weight:500}nav a{padding:10px 12px;border-radius:999px}nav a:hover{background:rgba(191,161,74,.12)}.btn{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:999px;border:1px solid transparent;font-weight:600;transition:.25s transform,.25s box-shadow,.25s background}.btn:hover{transform:translateY(-2px)}.btn-primary{background:linear-gradient(135deg,var(--leaf-2),#0a3f29);color:#fff;box-shadow:0 8px 20px rgba(14,111,71,.35)}.btn-outline{border:1px solid var(--leaf-2);color:var(--leaf-2);background:#fff}@media (max-width:820px){.navwrap{display:none}header{top:8px}.mnav{position:fixed;z-index:60;top:8px;left:8px;right:8px;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 10px;border-radius:16px;background:rgba(255,255,255,.72);backdrop-filter:blur(10px);border:1px solid rgba(0,0,0,.08);box-shadow:0 12px 30px rgba(0,0,0,.12)}.mnav-logo{width:150px;height:146px;background:url('logo.png') left center/contain no-repeat;display:block}.mnav-right{display:flex;align-items:center;gap:8px}.mnav-icon{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:999px;border:1px solid #0e6f47;background:#fff;text-decoration:none}.mnav-icon i{font-size:18px;color:#0e6f47}.mnav-book{padding:9px 14px;border-radius:999px;background:linear-gradient(135deg,#0e6f47,#0a3f29);color:#fff;font-weight:600;text-decoration:none;box-shadow:0 8px 20px rgba(14,111,71,.35)}.mnav-burger{margin-left:4px;width:38px;height:38px;border-radius:12px;border:1px solid rgba(0,0,0,.12);background:#fff;display:inline-grid;place-content:center;gap:4px}.mnav-burger span{display:block;width:18px;height:2px;background:#0e6f47;border-radius:2px}.mnav-drawer{position:fixed;z-index:59;top:70px;left:8px;right:8px;background:#fff;border:1px solid rgba(0,0,0,.1);border-radius:16px;box-shadow:0 24px 50px rgba(0,0,0,.18);padding:12px;display:flex;flex-direction:column;gap:6px;transform:translateY(-8px);opacity:0;pointer-events:none;transition:.25s ease}.mnav-drawer a{padding:12px 14px;border-radius:12px;text-decoration:none;color:#0f1613;font-weight:600}.mnav-drawer a:active{background:#f2f5f1}.mnav-scrim{position:fixed;inset:0;background:rgba(0,0,0,.15);z-index:58;opacity:0;pointer-events:none;transition:.25s}.mnav-drawer[data-open=true]{opacity:1;transform:translateY(0);pointer-events:auto}.mnav-scrim[data-open=true]{opacity:1;pointer-events:auto}}@media (min-width:821px){.mnav,.mnav-drawer,.mnav-scrim{display:none!important}}#footer-beceylon{background-color:#121212;color:#a0a0a0;font-size:15px;line-height:1.6}#footer-beceylon .container{max-width:1180px;margin:0 auto;padding:0 22px}.footer-main{padding:28px 0}.footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px}#footer-beceylon .footer-col{display:flex;flex-direction:column;gap:8px}.footer-col h4{font-size:18px;color:#fff;margin:0 0 16px;font-weight:600}#footer-beceylon .footer-logo{max-width:120px;margin:0 0 6px 0;display:block}#footer-beceylon .footer-tagline{max-width:340px;line-height:1.5}.footer-logo-tight{height:48px;width:auto;display:block;margin:0}.footer-links{list-style:none;padding:0;margin:0;display:grid;gap:12px}.footer-links a{color:#a0a0a0;text-decoration:none;transition:color .2s ease}.footer-links a:hover{color:var(--gold,#bfa14a)}.contact-info i{margin-right:12px;width:16px;text-align:center}.footer-social{display:flex;gap:16px}.footer-social a{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:#2b2b2b;color:#fff;font-size:16px;transition:background-color .2s ease,transform .2s ease}.footer-social a:hover{background:var(--gold,#bfa14a);color:#111;transform:translateY(-3px)}.footer-cta-wrap{background:#1a1a1a;padding:20px 0;border-top:2px solid var(--gold,#bfa14a)}.footer-cta{display:flex;justify-content:space-between;align-items:center;gap:32px}.footer-cta .cta-text h3{font-size:24px;font-weight:700;color:#fff;margin:0 0 8px}.footer-cta .cta-text p{margin:0;max-width:450px}.cta-form{display:flex;min-width:400px;background:#2b2b2b;border-radius:999px;padding:6px;border:1px solid #444}.cta-form input{flex-grow:1;border:none;background:0 0;outline:0;color:#fff;font-size:15px;padding:0 20px}.cta-form button{display:inline-flex;align-items:center;gap:10px;border:none;border-radius:999px;background:var(--gold,#bfa14a);color:#111;font-weight:700;padding:10px 20px;cursor:pointer;transition:transform .2s,box-shadow .2s}.cta-form button:hover{transform:scale(1.05);box-shadow:0 8px 20px rgba(191,161,74,.25)}.footer-bottom{padding:14px 0;border-top:1px solid #333}.footer-bottom p{margin:0;text-align:center;font-size:13px;color:#777}@media (max-width:980px){.footer-cta{flex-direction:column;align-items:flex-start;text-align:left}.cta-form{min-width:0;width:100%}}@media (max-width:768px){.footer-grid{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px}.card{grid-column:span 4;background:var(--card);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s}.card:hover{transform:translateY(-6px);box-shadow:0 18px 50px rgba(0,0,0,.15)}.card-media{aspect-ratio:16/10;background:#ddd;position:relative}.badge{position:absolute;bottom:12px;left:12px;background:rgba(0,0,0,.75);color:#fff;padding:6px 10px;border-radius:999px;font-size:.8rem}.card-body{padding:16px 16px 18px}.card h4{margin:0 0 6px}.card .meta{color:var(--muted);font-size:.92rem}.pkg .rating{display:flex;align-items:center;gap:10px;margin-top:6px}.stars{--rating:4;--size:18px;--star-color:#d9d9d9;--star-fill:var(--gold);position:relative;font-size:var(--size);line-height:1;letter-spacing:2px}.stars::before{content:"★★★★★";color:var(--star-color)}.stars::after{content:"★★★★★";position:absolute;left:0;top:0;width:calc(var(--rating)/ 5 * 100%);overflow:hidden;color:var(--star-fill);white-space:nowrap}.rating .count{color:#7c8a83;font-weight:600;font-size:.9rem}.pkg-foot{display:flex;align-items:center;justify-content:space-between;padding:0 16px 16px;margin-top:auto}.btn-learn{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:999px;border:none;cursor:pointer;background:linear-gradient(135deg,var(--leaf-2),#0a3f29);color:#fff;font-weight:700;box-shadow:0 10px 20px rgba(59,77,58,.25);transition:transform .15s}.btn-learn:hover{transform:translateY(-1px)}.card.ex{grid-column:span 4;position:relative;background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 10px 26px rgba(0,0,0,.08);display:flex;flex-direction:column}.ex .ex-head{height:270px;background:linear-gradient(135deg,#33433a,#bfa14a)}.ex .ex-body{padding:22px}.ex .ex-title{margin:0 0 6px;font-size:1.25rem;color:var(--green)}.ex .ex-desc{margin:2px 0 12px;color:#7a6a62}.ex .ex-meta{color:#6e7b73;font-size:.95rem;margin-bottom:10px}.ex .tags{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 16px}.ex .tag{display:inline-block;padding:6px 10px;border-radius:999px;background:#efede3;color:#6b6a5e;font-weight:600;font-size:.83rem}.ex .ex-foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding:0 22px 22px}.ex .btn-learn{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:999px;border:none;cursor:pointer;background:linear-gradient(135deg,var(--leaf-2),#0a3f29);color:#fff;font-weight:700;box-shadow:0 10px 20px rgba(59,77,58,.25)}.ex .btn-learn:hover{transform:translateY(-1px)}.rating{display:flex;align-items:center;gap:10px}.stars{--rating:4;--size:18px;--star-color:#d9d9d9;--star-fill:var(--gold);position:relative;font-size:var(--size);line-height:1;letter-spacing:2px}.stars::before{content:"★★★★★";color:var(--star-color)}.stars::after{content:"★★★★★";position:absolute;left:0;top:0;width:calc(var(--rating)/ 5 * 100%);overflow:hidden;color:var(--star-fill);white-space:nowrap}.rating .count{color:#7c8a83;font-weight:600;font-size:.9rem}.badge-dark{display:inline-block;padding:6px 10px;border-radius:999px;background:#28342e;color:#fff;font-size:.8rem;font-weight:700;position:absolute;left:12px;top:230px}.cta{background:linear-gradient(120deg,rgba(59,77,58,.1),rgba(191,161,74,.12));border-radius:24px;padding:28px;box-shadow:var(--shadow);text-align:center}.footer-cta .cta-text h3{font-size:24px;font-weight:700;color:#fff;margin:0 0 8px}.cta-form button:hover{transform:scale(1.05);box-shadow:0 8px 20px rgba(191,161,74,.25)}#footerBeceylon,.container,.hero,.section,.site-footer,.site-header{width:100%;max-width:100%}section{padding:64px 22px}.container{max-width:1180px;margin:0 auto}.section-title{font-size:clamp(24px,3.6vw,36px);margin:0 0 10px}.section-sub{color:var(--muted);max-width:820px}.exp-hero{position:relative;min-height:78vh;display:flex;align-items:center;padding:90px 0;overflow:visible;background:linear-gradient(180deg,rgba(230,240,232,.06),transparent 45%);border-bottom:1px solid rgba(14,111,71,.03)}.exp-hero-bg{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}.exp-waves{position:absolute;bottom:-10%;left:0;width:160%;height:45%;transform:translateX(-10%)}#expParticleCanvas{position:absolute;inset:0;z-index:0}.exp-hero-inner{position:relative;z-index:2;display:grid;grid-template-columns:1fr 520px;gap:48px;align-items:center;padding:0 18px}@media (max-width:980px){.exp-hero-inner{grid-template-columns:1fr}}.exp-eyebrow{display:inline-block;padding:8px 14px;border-radius:999px;background:rgba(14,111,71,.08);color:var(--leaf-2);font-weight:700;font-size:13px;margin-bottom:20px;letter-spacing:.3px}.exp-title{font-family:'Playfair Display',serif;font-size:48px;line-height:1.05;margin:0 0 18px;color:var(--ink)}.exp-title .exp-highlight{background:linear-gradient(90deg,var(--leaf-2),var(--leaf));-webkit-background-clip:text;background-clip:text;color:transparent}.exp-subtitle{font-size:18px;color:var(--muted);margin-bottom:52px;min-height:42px}.exp-cta{display:flex;gap:14px;margin-bottom:18px}.exp-btn{position:relative;overflow:hidden}.exp-ghost{border:1px solid rgba(14,111,71,.12)}.exp-features{display:flex;gap:18px;list-style:none;padding:0;margin:0;color:var(--muted);font-weight:600;font-size:14px;margin-top:8px}.exp-features li{background:rgba(255,255,255,.5);padding:8px 12px;border-radius:999px;box-shadow:0 8px 30px rgba(14,111,71,.03)}.exp-hero-right{display:flex;justify-content:flex-end;align-items:center}.exp-image-stack{position:relative;width:520px;height:360px;display:block}@media (max-width:980px){.exp-image-stack{width:100%;height:320px;margin-top:18px}}.img-card{position:absolute;border-radius:18px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.12);background:#eee;transform-origin:center;transition:transform .6s cubic-bezier(.2,.9,.2,1),box-shadow .3s}.img-card img{width:100%;height:100%;object-fit:cover;display:block;transform:translateZ(0)}.img-large{width:100%;height:100%;left:0;top:0;border-radius:20px}.img-small{width:46%;height:46%;right:8%;box-shadow:0 18px 60px rgba(0,0,0,.18)}.img-1{top:-6%;transform:rotate(-5deg) translateZ(0)}.img-2{bottom:-8%;right:-6%;transform:rotate(6deg) translateZ(0)}.exp-badge{position:absolute;left:18px;bottom:-16px;background:linear-gradient(135deg,#fff,rgba(250,250,250,.9));padding:12px 16px;border-radius:999px;display:flex;gap:10px;align-items:center;box-shadow:0 18px 60px rgba(14,111,71,.08);transform:translateY(6px);transition:transform .5s ease}.badge-icon{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,var(--leaf-2),var(--leaf));color:#fff;font-size:18px}.exp-badge small{display:block;color:var(--muted);font-size:12px;margin-top:2px}.exp-image-stack:hover .img-large{transform:scale(1.02) rotate(-1deg)}.img-card:hover{transform:translateY(-8px) scale(1.03);box-shadow:0 36px 120px rgba(0,0,0,.22);z-index:6}.exp-subtitle .caret{display:inline-block;width:2px;height:1.1em;background:var(--leaf-2);margin-left:6px;vertical-align:middle;animation:blink 1s steps(1) infinite}@keyframes blink{50%{opacity:0}}@media (max-width:640px){.exp-title{font-size:24px;line-height:1.04;margin-bottom:8px}.exp-image-stack{width:calc(100% - 12px);height:300px;margin:8px auto 0;position:relative;display:block;overflow:visible}.img-card{border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.14);position:absolute;transition:transform .45s ease,box-shadow .25s ease;will-change:transform}.img-large{left:0;top:0;width:100%;height:100%;transform:rotate(-2deg) scale(1)!important;z-index:10;border-radius:16px}.img-small.img-1{width:58%;height:48%;right:6%;top:-6%;transform:rotate(-6deg);z-index:22;border-radius:14px}.img-small.img-2{width:52%;height:50%;right:-2%;bottom:-8%;transform:rotate(6deg);z-index:18;border-radius:14px}.img-card img{width:100%;height:100%;object-fit:cover;display:block}.exp-badge{position:absolute;left:12px;bottom:12px;transform:none;z-index:30;box-shadow:0 14px 40px rgba(14,111,71,.09);padding:10px 14px;border-radius:999px;display:flex;gap:10px;align-items:center;background:linear-gradient(135deg,#fff,rgba(255,255,255,.95))}#expParticleCanvas{display:none!important}.exp-hero{padding-top:72px;padding-bottom:22px;min-height:58vh}.img-card:hover{transform:none;box-shadow:0 20px 60px rgba(0,0,0,.14)}.exp-title{max-width:calc(100% - 72px);font-size:24px;line-height:1.06;word-break:normal;white-space:normal;margin-right:0}}.exp-cta .btn:focus{outline:3px solid rgba(30,142,90,.16);outline-offset:3px}#expParticleCanvas{z-index:0}:root{--be-nav-selector:".site-nav";--hero-desktop-offset:40px}.exp-hero{margin-top:28px;min-height:78vh;padding-top:40px;padding-bottom:56px;box-sizing:border-box;overflow:hidden}@media (min-width:980px){.exp-hero{height:calc(100vh - var(--hero-desktop-offset));min-height:calc(720px);display:flex;align-items:center;margin-top:18px;padding-top:48px;padding-bottom:48px}.exp-hero-inner{grid-template-columns:1fr 560px;gap:64px;align-items:center}.exp-hero-left{padding-right:12px}.exp-title{font-size:56px;line-height:1.02;margin-bottom:22px}.exp-image-stack{width:560px;height:420px}.img-large{border-radius:24px;box-shadow:0 40px 120px rgba(0,0,0,.12)}.img-small{width:48%;height:48%;right:6%;box-shadow:0 22px 70px rgba(0,0,0,.18)}.exp-badge{left:18px;bottom:8px;transform:translateY(0)}}@media (max-width:979px){.exp-hero-inner{gap:30px;padding:14px}.exp-title{font-size:30px}.exp-cta{margin-top:14px}}.exp-cta{gap:16px;margin-bottom:22px}.exp-features{gap:14px;margin-top:18px}.exp-hero-bg{pointer-events:none}#expParticleCanvas{position:absolute;inset:0;z-index:0;display:block}@media (prefers-reduced-motion:reduce){.exp-image-stack,.img-card{transition:none!important;animation:none!important}.exp-subtitle .caret{display:none}}@media (max-width:640px){.grid{display:grid;grid-template-columns:1fr;gap:16px;margin:0}.card{grid-column:auto!important;width:100%;display:flex;flex-direction:column;border-radius:14px;overflow:hidden;box-shadow:0 12px 36px rgba(0,0,0,.1);transition:transform .18s ease,box-shadow .18s ease}.card:hover{transform:none;box-shadow:0 14px 38px rgba(0,0,0,.11)}.card-media,.ex .ex-head{height:220px;background-position:center}.badge-dark{position:absolute;left:12px;top:calc(220px - 42px);z-index:22;padding:6px 10px;border-radius:999px;font-weight:700;box-shadow:0 8px 22px rgba(0,0,0,.12)}.ex .ex-body{padding:14px 14px 16px}.ex .ex-title{font-size:1.05rem;margin-bottom:6px;line-height:1.18}.ex .ex-desc{font-size:.95rem;color:#7a6a62;margin-bottom:8px}.ex .ex-meta{font-size:.9rem;color:var(--muted);margin-bottom:8px}.ex .tags{gap:8px;margin-top:8px}.ex .ex-foot{flex-direction:row;align-items:center;gap:10px;padding:12px 14px 16px}.rating .count{font-size:.92rem}.ex .btn-learn{padding:10px 14px;font-size:14px;border-radius:12px}#experiences{padding-bottom:20px}}.wa{position:fixed;right:max(16px,env(safe-area-inset-right));bottom:max(18px,env(safe-area-inset-bottom));z-index:9999;background:0 0!important;border:0!important;box-shadow:none!important;pointer-events:none}.wa .fab{pointer-events:auto;position:relative;width:60px;height:60px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:26px;background:radial-gradient(120% 120% at 30% 30%,#39e07a 0,#25d366 60%,#10b960 100%),conic-gradient(from 200deg at 50% 50%,#1ccf67,#25d366,#1ccf67);box-shadow:0 14px 30px rgba(37,211,102,.38),inset 0 2px 0 rgba(255,255,255,.12);border:0;cursor:pointer;transition:transform .18s ease,box-shadow .18s ease;animation:waBreath 3s ease-in-out infinite}.wa .fab::after,.wa .fab::before{content:"";position:absolute;inset:0;border-radius:50%;pointer-events:none}.wa .fab::before{inset:-4px;background:radial-gradient(60% 60% at 50% 50%,rgba(37,211,102,.45),transparent 70%);filter:blur(6px);opacity:.55;animation:waPulse 2.8s ease-out infinite}.wa .fab::after{background:linear-gradient(120deg,rgba(255,255,255,.45) 0,rgba(255,255,255,0) 28% 72%,rgba(255,255,255,.45) 100%);mix-blend-mode:screen;background-size:300% 100%;background-position:-150% 0;animation:waSheenPos 2.8s ease-in-out infinite;clip-path:circle(50% at 50% 50%)}.wa .panel{position:absolute;right:70px;bottom:4px;width:min(320px,90vw);background:#fff;border-radius:16px;border:1px solid rgba(0,0,0,.08);box-shadow:0 18px 44px rgba(0,0,0,.18);display:none;visibility:hidden;opacity:0;pointer-events:none;transition:opacity .18s ease,transform .18s ease,visibility .18s;transform:translateY(6px)}.wa.open .panel{display:block;visibility:visible;opacity:1;pointer-events:auto;transform:none}.wa .panel header{margin:0;background:#0e6f47;color:#fff;border-radius:16px 16px 0 0;padding:12px 14px;font-weight:600}.wa .panel .body{padding:12px}.wa .chip{display:inline-flex;gap:8px;align-items:center;background:#f3fbf6;color:#0e6f47;border:1px dashed #bde8cf;border-radius:999px;padding:6px 10px;margin:6px 6px 0 0;text-decoration:none;font-weight:600;font-size:.92rem}@keyframes waBreath{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}@keyframes waPulse{0%{opacity:0;transform:scale(.86)}50%{opacity:.55}100%{opacity:0;transform:scale(1.15)}}@keyframes waSheenPos{0%,60%{background-position:-150% 0}100%,85%{background-position:150% 0}}</style>
 </head>
 <body>
-    
-  <!-- NAV -->
-  <header>
-    <div class="navwrap">
-      <div class="nav-logo" aria-label="Be Ceylon"></div>
-      <nav>
-        <a href="error.html">Packages</a>
-        <a href="home.html">Home</a>
-        <a href="about.html" class="btn btn-outline"><i class="fa-brands fa-whatsapp"></i> Contact</a>
-        <a href="#book" class="btn btn-primary"><i class="fa-solid fa-calendar-check"></i> Book</a>
-      </nav>
-    </div>
-    <!-- MOBILE NAV (shows on ≤820px) -->
-    <div class="mnav" aria-label="Mobile navigation">
-      <a href="/" class="mnav-logo" aria-label="Be Ceylon"></a>
-  <div class="mnav-right">
-    <a href="about.html" class="mnav-icon" aria-label="WhatsApp contact">
-      <i class="fa-brands fa-whatsapp"></i>
-    </a>
-    <a href="#book" class="mnav-book">Book</a>
-
-    <button class="mnav-burger" aria-expanded="false" aria-controls="mnav-drawer">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
+<header>
+<div class=navwrap>
+<div class=nav-logo aria-label="Be Ceylon"></div>
+<nav>
+<a href=error.html>Packages</a>
+<a href=home.html>Home</a>
+<a href=about.html class="btn btn-outline"><i class="fa-brands fa-whatsapp"></i> Contact</a>
+<a href=#book class="btn btn-primary"><i class="fa-solid fa-calendar-check"></i> Book</a>
+</nav>
 </div>
-
-<div id="mnav-drawer" class="mnav-drawer" hidden>
-  <a href="error.html">Packages</a>
-  <a href="home.html">Home</a>
-  <a href="about.html">Contact</a>
+<div class=mnav aria-label="Mobile navigation">
+<a href=/ class=mnav-logo aria-label="Be Ceylon"></a>
+<div class=mnav-right>
+<a href=about.html class=mnav-icon aria-label="WhatsApp contact">
+<i class="fa-brands fa-whatsapp"></i>
+</a>
+<a href=#book class=mnav-book>Book</a>
+<button class=mnav-burger aria-expanded=false aria-controls=mnav-drawer>
+<span></span><span></span><span></span>
+</button>
 </div>
-<div class="mnav-scrim" hidden></div>
-  </header>
-  <!-- ========== EXPERIENCE HERO (Modern Animated) ========== -->
-<section class="exp-hero" aria-label="Experience Hero">
-  <div class="exp-hero-bg" aria-hidden="true">
-    <!-- decorative SVG waves -->
-    <svg class="exp-waves" viewBox="0 0 1440 320" preserveAspectRatio="none" aria-hidden="true">
-      <path id="wave1" d="" fill="url(#g1)" opacity="0.18"></path>
-      <path id="wave2" d="" fill="url(#g2)" opacity="0.10"></path>
-      <defs>
-        <linearGradient id="g1" x1="0" x2="1">
-          <stop offset="0" stop-color="#0e6f47"/>
-          <stop offset="1" stop-color="#1e8e5a"/>
-        </linearGradient>
-        <linearGradient id="g2" x1="0" x2="1">
-          <stop offset="0" stop-color="#c5a04b"/>
-          <stop offset="1" stop-color="#f0d5a0"/>
-        </linearGradient>
-      </defs>
-    </svg>
-    <canvas id="expParticleCanvas" aria-hidden="true"></canvas>
-  </div>
-
-  <div class="exp-hero-inner container">
-    <div class="exp-hero-left">
-      <div class="exp-eyebrow">Unique · Local · Sustainable</div>
-      <h1 class="exp-title">
-        Curated Sri Lanka Adventures — <span class="exp-highlight">Live Like a Local</span>
-      </h1>
-      <p class="exp-subtitle" id="expTypewriter" data-text='["Village stays with home-cooked meals.","Tea-terrace sunrise hikes.","Hands-on craft & culinary workshops."]'>
-        <!-- typewriter fills here -->
-      </p>
-
-      <div class="exp-cta">
-        <a href="/experiences.html" class="btn btn-primary exp-btn">
-          <i class="fas fa-map-marked-alt"></i> Browse Experiences
-        </a>
-        <a href="#book" class="btn btn-outline exp-ghost">
-          <i class="fas fa-calendar-plus"></i> Book a Trip
-        </a>
-      </div>
-
-
-    </div>
-
-    <div class="exp-hero-right" aria-hidden="false">
-      <div class="exp-image-stack">
-        <div class="img-card img-large" data-src="img/experience-large.jpg" role="img" aria-label="Tea terrace">
-          <img data-src="img/packg2.jpg" alt="photo" />
-        </div>
-
-        <div class="img-card img-small img-1" data-src="img/experience-small1.jpg" role="img" aria-label="Village cooking">
-          <img data-src="img/packg1.jpg" alt="photo" />
-        </div>
-
-        <div class="img-card img-small img-2" data-src="img/experience-small2.jpg" role="img" aria-label="Sunrise hike">
-          <img data-src="img/pot2.jpg" alt="photo" />
-        </div>
-
-        <div class="exp-badge">
-          <span class="badge-icon"><i class="fas fa-seedling"></i></span>
-          <span class="badge-text"><strong>Locally Curated</strong><small>Trusted Hosts</small></span>
-        </div>
-      </div>
-    </div>
-  </div>
+</div>
+<div id=mnav-drawer class=mnav-drawer hidden>
+<a href=error.html>Packages</a>
+<a href=home.html>Home</a>
+<a href=about.html>Contact</a>
+</div>
+<div class=mnav-scrim hidden></div>
+</header>
+<section class=exp-hero aria-label="Experience Hero">
+<div class=exp-hero-bg aria-hidden=true>
+<svg class=exp-waves viewBox="0 0 1440 320" preserveAspectRatio=none aria-hidden=true>
+<path id=wave1 d="" fill=url(#g1) opacity=0.18></path>
+<path id=wave2 d="" fill=url(#g2) opacity=0.10></path>
+<defs>
+<linearGradient id=g1 x1=0 x2=1>
+<stop offset=0 stop-color=#0e6f47 />
+<stop offset=1 stop-color=#1e8e5a />
+</linearGradient>
+<linearGradient id=g2 x1=0 x2=1>
+<stop offset=0 stop-color=#c5a04b />
+<stop offset=1 stop-color=#f0d5a0 />
+</linearGradient>
+</defs>
+</svg>
+<canvas id=expParticleCanvas aria-hidden=true></canvas>
+</div>
+<div class="exp-hero-inner container">
+<div class=exp-hero-left>
+<div class=exp-eyebrow>Unique · Local · Sustainable</div>
+<h1 class=exp-title>
+Curated Sri Lanka Adventures — <span class=exp-highlight>Live Like a Local</span>
+</h1>
+<p class=exp-subtitle id=expTypewriter data-text='["Village stays with home-cooked meals.","Tea-terrace sunrise hikes.","Hands-on craft & culinary workshops."]'>
+</p>
+<div class=exp-cta>
+<a href=/experiences.html class="btn btn-primary exp-btn">
+<i class="fas fa-map-marked-alt"></i> Browse Experiences
+</a>
+<a href=#book class="btn btn-outline exp-ghost">
+<i class="fas fa-calendar-plus"></i> Book a Trip
+</a>
+</div>
+</div>
+<div class=exp-hero-right aria-hidden=false>
+<div class=exp-image-stack>
+<div class="img-card img-large" data-src=img/experience-large.jpg role=img aria-label="Tea terrace">
+<img data-src=img/packg2.jpg alt=photo>
+</div>
+<div class="img-card img-small img-1" data-src=img/experience-small1.jpg role=img aria-label="Village cooking">
+<img data-src=img/packg1.jpg alt=photo>
+</div>
+<div class="img-card img-small img-2" data-src=img/experience-small2.jpg role=img aria-label="Sunrise hike">
+<img data-src=img/pot2.jpg alt=photo>
+</div>
+<div class=exp-badge>
+<span class=badge-icon><i class="fas fa-seedling"></i></span>
+<span class=badge-text><strong>Locally Curated</strong><small>Trusted Hosts</small></span>
+</div>
+</div>
+</div>
+</div>
 </section>
-<!-- ========== end hero ========== -->
-
-  <!-- EXPERIENCES -->
-  <section class="container reveal" id="experiences">
-    <h2 class="section-title">Experiences</h2>
-    <p class="section-sub">Hand-picked activities in Bandarawela, Ella & Diyatalawa. Build your own day or choose a package.</p>
-
-<div class="grid" style="margin-top:18px">
-
-<!-- 1 Cultural Dancing with Private Villa Night -->
-<article class="card ex" id="ex-dance-villa">
-  <div class="ex-head" style="background:url('img/e11.jpg') center/cover no-repeat"></div>
-  <span class="badge-dark">1D/1N · Bandarawela</span>
-  <div class="ex-body">
-    <h4 class="ex-title">Ceylon Cultural Night — Dance & Private Villa Stay</h4>
-    <div class="ex-meta">Check-in after 10:00 • Show 6:15 PM • Dinner &amp; Breakfast included</div>
-<p class="ex-desc">Experience Sri Lanka’s heritage in a serene villa garden under the evening rhythms and warm hospitality.</p>
-    <div class="tags">
-      <span class="tag">Bonfire</span>
-      <span class="tag">Luxury private villa</span>
-      <span class="tag">Meals</span>
-      <span class="tag">Garden evening show</span>
-      <span class="tag">Welcome drink</span>
-    </div>
-  </div>
-  <div class="ex-foot">
-    <div class="rating">
-      <div class="stars" data-rating="5.0"></div>
-      <span class="count" data-count="16">5.0 (16)</span>
-    </div>
-    <a href="exdance.html" class="btn-learn"><i class="fa-solid fa-circle-info"></i> Learn More</a>
-  </div>
-</article>
-
-
-<!-- 2 Cookery Class -->
-<article class="card ex" id="ex-cookery">
-  <div class="ex-head" style="background:url('img/e14.jpg') center/cover no-repeat"></div>
-  <span class="badge-dark">2h · Ella</span>
-  <div class="ex-body">
-    <h4 class="ex-title">Traditional Cooking Class — Flavors of Ceylon</h4>
-    <div class="ex-meta">10 dishes • Lunch or Dinner • Chef-led class</div>
-<p class="ex-desc">Learn authentic Sri Lankan cooking with a local chef and enjoy your handmade dishes with stunning mountain views.</p>
-    <div class="tags">
-      <span class="tag">Chef-led</span>
-      <span class="tag">Scenic mountain view</span>
-      <span class="tag">Hands-on</span>
-      <span class="tag">Fun & interactive</span>
-    </div>
-  </div>
-  <div class="ex-foot">
-    <div class="rating">
-      <div class="stars" data-rating="5.0"></div>
-      <span class="count" data-count="350">5.0 (89)</span>
-    </div>
-    <a href="excookery.html" class="btn-learn"><i class="fa-solid fa-circle-info"></i> Learn More</a>
-  </div>
-</article>
-
-
-<!-- 3 Tea Making Show -->
-<article class="card ex" id="ex-tea">
-  <div class="ex-head" style="background:url('img/e16.jpg') center/cover no-repeat"></div>
-  <span class="badge-dark">4h · Ella</span>
-  <div class="ex-body">
-    <h4 class="ex-title">Tea Making Show — From Leaf to Cup</h4>
-    <div class="ex-meta">Garden visit • Factory tour • Tasting session</div>
-    <p class="ex-desc">Visit a working tea garden and factory to learn hand-picking, rolling, and tasting — a hands-on journey from leaf to cup.</p>
-    <div class="tags">
-      <span class="tag">Tasting (3–5 teas)</span>
-      <span class="tag">Free water</span>
-      <span class="tag">Cake/Pastry</span>
-      <span class="tag">Factory entry</span>
-      <span class="tag">Transport</span>
-    </div>
-  </div>
-  <div class="ex-foot">
-    <div class="rating">
-      <div class="stars" data-rating="4.9"></div>
-      <span class="count" data-count="120">4.9 (120)</span>
-    </div>
-    <a href="Extea.html" class="btn-learn"><i class="fa-solid fa-circle-info"></i> Learn More</a>
-  </div>
-</article>
-
-<!-- 4 Village Tour -->
-<article class="card ex" id="ex-village">
-  <div class="ex-head" style="background:url('img/e10.jpg') center/cover no-repeat"></div>
-  <span class="badge-dark">7h · Bandarawela</span>
-  <div class="ex-body">
-    <h4 class="ex-title">Authentic Village Experience — Nature & Culture</h4>
-    <div class="ex-meta">Guided walk • Jungle & river • Traditional lunch</div>
-<p class="ex-desc">Journey through a peaceful Ceylon village where nature and everyday life blend into a truly local experience.</p>
-    <div class="tags">
-      <span class="tag">Jungle & village</span>
-      <span class="tag">Rivers & lakes</span>
-      <span class="tag">River bath</span>
-      <span class="tag">Transport included</span>
-      <span class="tag">King coconut + Short eats</span>
-      <span class="tag">Lunch</span>
-    </div>
-  </div>
-  <div class="ex-foot">
-    <div class="rating">
-      <div class="stars" data-rating="4.9"></div>
-      <span class="count" data-count="48">4.9 (48)</span>
-    </div>
-    <a href="exvillage.html" class="btn-learn"><i class="fa-solid fa-circle-info"></i> Learn More</a>
-  </div>
-</article>
-
-<!-- 5 Pottery Experience -->
-<article class="card ex" id="ex-pottery">
-  <div class="ex-head" style="background:url('img/e9.jpg') center/cover no-repeat"></div>
-  <span class="badge-dark">2 h · Haputale</span>
-  <div class="ex-body">
-    <h4 class="ex-title">Pottery Experience — Shape Your Own Creation</h4>
-    <div class="ex-meta">Wheel-throwing • Hand-building • Aprons & materials</div>
-<p class="ex-desc">Spend a calm, hands-on session with a village artisan and craft a unique clay keepsake to cherish or send home.</p>
-    <div class="tags">
-      <span class="tag">Wheel throwing</span>
-      <span class="tag">Hand-building</span>
-      <span class="tag">Make &amp; take</span>
-      <span class="tag">Aprons &amp; materials</span>
-    </div>
-  </div>
-  <div class="ex-foot">
-    <div class="rating">
-      <div class="stars" data-rating="4.9"></div>
-      <span class="count" data-count="96">4.9 (56)</span>
-    </div>
-    <a href="expottery.html" class="btn-learn"><i class="fa-solid fa-circle-info"></i> Learn More</a>
-  </div>
-</article>
-
-<!-- 6 Beekeeping Experience -->
-<article class="card ex" id="ex-beekeeping">
-  <div class="ex-head" style="background:url('img/e13.jpg') center/cover no-repeat"></div>
-  <span class="badge-dark">2 h · Bandarawela</span>
-  <div class="ex-body">
-    <h4 class="ex-title">Beekeeping Experience — Honey from Hive to Table</h4>
-    <div class="ex-meta">Apiary visit • Extraction demo • Tasting</div>
-    <p class="ex-desc">Observe skilled apiary work, learn safe handling, and enjoy fresh honey samples with light tea-time bites.</p>
-    <div class="tags">
-      <span class="tag">Protective gear</span>
-      <span class="tag">Extraction demo</span>
-      <span class="tag">Honey tasting</span>
-      <span class="tag">Nature-aware</span>
-      <span class="tag">Tea-time with honey</span>
-      <span class="tag">Beginner friendly</span>
-    </div>
-  </div>
-  <div class="ex-foot">
-    <div class="rating">
-      <div class="stars" data-rating="4.9"></div>
-      <span class="count" data-count="56">4.9 (56)</span>
-    </div>
-    <a href="exbee.html" class="btn-learn"><i class="fa-solid fa-circle-info"></i> Learn More</a>
-  </div>
-</article>
-
-<!-- 7 Mushroom Cultivation -->
-<article class="card ex" id="ex-mushroom">
-  <div class="ex-head" style="background:url('img/e12.jpg') center/cover no-repeat"></div>
-  <span class="badge-dark">1.5 h · Bandarawela</span>
-  <div class="ex-body">
-    <h4 class="ex-title">Mushroom Harvest Experience — From Spawn to Table</h4>
-    <div class="ex-meta">Spawn → harvest • Inoculation demo • Tasting</div>
-    <p class="ex-desc">Hands-on cultivation session: prepare substrate, inoculate, observe fruiting, harvest your mushrooms, and enjoy fresh mushroom snacks.</p>
-    <div class="tags">
-      <span class="tag">Spawn → harvest</span>
-      <span class="tag">Inoculation (hands-on)</span>
-      <span class="tag">Tea-time (mushroom bites)</span>
-      <span class="tag">Take-home</span>
-    </div>
-  </div>
-  <div class="ex-foot">
-    <div class="rating">
-      <div class="stars" data-rating="4.9"></div>
-      <span class="count" data-count="17">4.9 (17)</span>
-    </div>
-    <a href="exmushroom.html" class="btn-learn"><i class="fa-solid fa-circle-info"></i> Learn More</a>
-  </div>
-</article>
-
-<!-- 8 Agri Experience -->
-<article class="card ex" id="ex-agri">
-  <div class="ex-head" style="background:url('img/e15.jpg') center/cover no-repeat"></div>
-  <span class="badge-dark">4 h · Haputale</span>
-  <div class="ex-body">
-    <h4 class="ex-title">Agri Experience in the Hills — Plant, Harvest & Taste</h4>
-    <div class="ex-meta">Hands-on farm • Seed-to-harvest • Tea &amp; short eats</div>
-    <p class="ex-desc">Work alongside local farmers, learn simple organic methods, and finish the day tasting fresh produce with a warming cup of tea.</p>
-    <div class="tags">
-      <span class="tag">Planting &amp; care</span>
-      <span class="tag">Organic methods</span>
-      <span class="tag">Harvest to table</span>
-      <span class="tag">Tea + snack</span>
-    </div>
-  </div>
-  <div class="ex-foot">
-    <div class="rating">
-      <div class="stars" data-rating="5.0"></div>
-      <span class="count" data-count="56">5.0 (56)</span>
-    </div>
-    <a href="exagri.html" class="btn-learn"><i class="fa-solid fa-circle-info"></i> Learn More</a>
-  </div>
-</article>
-
-<!-- 9 Outbound Experience -->
-<article class="card ex" id="ex-outbound">
-  <div class="ex-head" style="background:url('img/e17.jpg') center/cover no-repeat"></div>
-  <span class="badge-dark">8h · Ebilipitiya</span>
-  <div class="ex-body">
-    <h4 class="ex-title">Outbound Experience — Team, Adventure & Leadership</h4>
-    <div class="ex-meta">Full-day training • Water & land challenges • Safety gear included</div>
-<p class="ex-desc">Enjoy a fun lakeside day of teamwork, adventure, and guided outdoor challenges.</p>
-    <div class="tags">
-      <span class="tag">Water & adventure activities</span>
-  <span class="tag">Adventure</span>
-  <span class="tag">Water activities</span>
-  <span class="tag">Lunch & tea</span>
-  <span class="tag">Safety gear</span>
-  <span class="tag">Night camp</span>
-    </div>
-  </div>
-  <div class="ex-foot">
-    <div class="rating">
-      <div class="stars" data-rating="5.0"></div>
-      <span class="count" data-count="56">5.0 (38)</span>
-    </div>
-    <a href="exbound.html" class="btn-learn"><i class="fa-solid fa-circle-info"></i> Learn More</a>
-  </div>
-</article>
-
+<section class="container reveal" id=experiences>
+<h2 class=section-title>Experiences</h2>
+<p class=section-sub>Hand-picked activities in Bandarawela, Ella & Diyatalawa. Build your own day or choose a package.</p>
+<div class=grid style=margin-top:18px>
+<article class="card ex" id=ex-dance-villa>
+<div class=ex-head style="background:url('img/e11.jpg') center/cover no-repeat"></div>
+<span class=badge-dark>1D/1N · Bandarawela</span>
+<div class=ex-body>
+<h4 class=ex-title>Ceylon Cultural Night — Dance & Private Villa Stay</h4>
+<div class=ex-meta>Check-in after 10:00 • Show 6:15 PM • Dinner &amp; Breakfast included</div>
+<p class=ex-desc>Experience Sri Lanka’s heritage in a serene villa garden under the evening rhythms and warm hospitality.</p>
+<div class=tags>
+<span class=tag>Bonfire</span>
+<span class=tag>Luxury private villa</span>
+<span class=tag>Meals</span>
+<span class=tag>Garden evening show</span>
+<span class=tag>Welcome drink</span>
 </div>
-    </div>
-  </section>
-  <br><br><br><br>
-    <!-- CTA -->
-  <section class="container reveal">
-    <div class="cta">
-      <h3 style="margin:0 0 8px">Discover. Immerse. Belong.</h3>
-      <p style="margin:0 0 14px;color:var(--muted)">Start your curated journey with Beceylon — or build your own package from our experiences.</p>
-      <a href="error.html" class="btn btn-primary"><i class="fa-solid fa-hammer"></i> Build Your Package</a>
-    </div>
-  </section>
-    <br><br>
-
-  <!-- FOOTER -->
-  <footer id="footer-beceylon">
-    <div class="footer-cta-wrap">
-      <div class="container footer-cta">
-        <div class="cta-text">
-          <h3>Join Our Community 🔥</h3>
-          <p>Receive exclusive stories, travel tips, and member-only offers directly from Uva.</p>
-        </div>
-        <form class="cta-form" onsubmit="return false">
-          <input type="email" placeholder="Enter your email address" aria-label="Email address" required>
-          <button type="submit" aria-label="Subscribe">
-            <span>Subscribe</span>
-            <i class="fa-solid fa-arrow-right"></i>
-          </button>
-        </form>
-      </div>
-    </div>
-    <div class="footer-main">
-      <div class="container footer-grid">
-        <div class="footer-col">
-          <p class="footer-tagline">
-            Real Uva, hosted by locals—tea hills, village paths, river valleys. Your trip supports families and living traditions.
-          </p>
-          <p class="footer-tagline">
-            Small groups, light footprints—sunrise hikes, farm-to-table meals, wellness pauses. Fair pricing, 24/7 support.
-          </p>
-        </div>
-        <div class="footer-col">
-          <h4>Explore</h4>
-          <ul class="footer-links">
-            <li><a href="#experiences">Experiences</a></li>
-            <li><a href="error.html">Packages</a></li>
-            <li><a href="error.html">Loyalty Program</a></li>
-            <li><a href="error.html">Gallery</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>Contact</h4>
-          <ul class="footer-links contact-info">
-            <li><a href="tel:+94783676022"><i class="fa-solid fa-phone"></i> +94 78 367 6022</a></li>
-            <li><a href="mailto:info@beceylon.com"><i class="fa-solid fa-envelope"></i> info@beceylon.com</a></li>
-            <li><a href="https://wa.me/94783676022" target="_blank" rel="noopener">
-              <i class="fa-brands fa-whatsapp"></i> WhatsApp</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>Follow Us</h4>
-          <div class="footer-social">
-            <a href="https://www.instagram.com/be_ceylon?igsh=MW14czFuNXkwaXB1aw==" aria-label="Instagram" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i></a>
-            <a href="https://www.facebook.com/share/1Uv3PZpyxm/" aria-label="Facebook" target="_blank" rel="noopener"><i class="fa-brands fa-facebook-f"></i></a>
-            <a href="https://www.tiktok.com/@be.ceylon?_r=1&_t=ZS-91QT75J0aVm" aria-label="Tiktok" target="_blank" rel="noopener"><i class="fa-brands fa-tiktok"></i></a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <div class="container">
-        <p>© 2025 Beceylon. All rights reserved.</p>
-      </div>
-    </div>
-  </footer>
-  <!-- WHATSAPP FLOAT -->
-<div class="wa" id="wa" aria-hidden="false">
-  <div class="fab" id="wa-fab" role="button" aria-label="Chat on WhatsApp" aria-expanded="false">
-    <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
-  </div>
-
-  <div class="panel" id="wa-panel" role="dialog" aria-label="WhatsApp chat panel" aria-hidden="true">
-    <header>Chat with us on WhatsApp</header>
-    <div class="body">
-      <p class="muted" style="margin-top:0">Ask anything — we usually reply in minutes.</p>
-
-      <!-- WA chips — adapt links/text for the specific experience -->
-      <div class="wa-chips">
-        <a class="chip" href="https://wa.me/94783676022?text=Hi!%20I%27m%20interested%20in%20the%20Beekeeping%20Experience.%20Can%20you%20share%20the%20full%20itinerary%3F" target="_blank" rel="noopener">Experiences</a>
-        <a class="chip" href="https://wa.me/94783676022?text=Hi!%20Is%20protective%20gear%20provided%3F%20What%20should%20we%20bring%3F" target="_blank" rel="noopener">Packages</a>
-        <a class="chip" href="https://wa.me/94783676022?text=Hi!%20Do%20you%20provide%20honey%20samples%20to%20take%20home%3F" target="_blank" rel="noopener">About Us</a>
-        <a class="chip" href="https://wa.me/94783676022?text=Hi!%20Open%20chat" target="_blank" rel="noopener">Open chat</a>
-      </div>
-    </div>
-  </div>
+</div>
+<div class=ex-foot>
+<div class=rating>
+<div class=stars data-rating=5.0></div>
+<span class=count data-count=16>5.0 (16)</span>
+</div>
+<a href=exdance.html class=btn-learn><i class="fa-solid fa-circle-info"></i> Learn More</a>
+</div>
+</article>
+<article class="card ex" id=ex-cookery>
+<div class=ex-head style="background:url('img/e14.jpg') center/cover no-repeat"></div>
+<span class=badge-dark>2h · Ella</span>
+<div class=ex-body>
+<h4 class=ex-title>Traditional Cooking Class — Flavors of Ceylon</h4>
+<div class=ex-meta>10 dishes • Lunch or Dinner • Chef-led class</div>
+<p class=ex-desc>Learn authentic Sri Lankan cooking with a local chef and enjoy your handmade dishes with stunning mountain views.</p>
+<div class=tags>
+<span class=tag>Chef-led</span>
+<span class=tag>Scenic mountain view</span>
+<span class=tag>Hands-on</span>
+<span class=tag>Fun & interactive</span>
+</div>
+</div>
+<div class=ex-foot>
+<div class=rating>
+<div class=stars data-rating=5.0></div>
+<span class=count data-count=350>5.0 (89)</span>
+</div>
+<a href=excookery.html class=btn-learn><i class="fa-solid fa-circle-info"></i> Learn More</a>
+</div>
+</article>
+<article class="card ex" id=ex-tea>
+<div class=ex-head style="background:url('img/e16.jpg') center/cover no-repeat"></div>
+<span class=badge-dark>4h · Ella</span>
+<div class=ex-body>
+<h4 class=ex-title>Tea Making Show — From Leaf to Cup</h4>
+<div class=ex-meta>Garden visit • Factory tour • Tasting session</div>
+<p class=ex-desc>Visit a working tea garden and factory to learn hand-picking, rolling, and tasting — a hands-on journey from leaf to cup.</p>
+<div class=tags>
+<span class=tag>Tasting (3–5 teas)</span>
+<span class=tag>Free water</span>
+<span class=tag>Cake/Pastry</span>
+<span class=tag>Factory entry</span>
+<span class=tag>Transport</span>
+</div>
+</div>
+<div class=ex-foot>
+<div class=rating>
+<div class=stars data-rating=4.9></div>
+<span class=count data-count=120>4.9 (120)</span>
+</div>
+<a href=Extea.html class=btn-learn><i class="fa-solid fa-circle-info"></i> Learn More</a>
+</div>
+</article>
+<article class="card ex" id=ex-village>
+<div class=ex-head style="background:url('img/e10.jpg') center/cover no-repeat"></div>
+<span class=badge-dark>7h · Bandarawela</span>
+<div class=ex-body>
+<h4 class=ex-title>Authentic Village Experience — Nature & Culture</h4>
+<div class=ex-meta>Guided walk • Jungle & river • Traditional lunch</div>
+<p class=ex-desc>Journey through a peaceful Ceylon village where nature and everyday life blend into a truly local experience.</p>
+<div class=tags>
+<span class=tag>Jungle & village</span>
+<span class=tag>Rivers & lakes</span>
+<span class=tag>River bath</span>
+<span class=tag>Transport included</span>
+<span class=tag>King coconut + Short eats</span>
+<span class=tag>Lunch</span>
+</div>
+</div>
+<div class=ex-foot>
+<div class=rating>
+<div class=stars data-rating=4.9></div>
+<span class=count data-count=48>4.9 (48)</span>
+</div>
+<a href=exvillage.html class=btn-learn><i class="fa-solid fa-circle-info"></i> Learn More</a>
+</div>
+</article>
+<article class="card ex" id=ex-pottery>
+<div class=ex-head style="background:url('img/e9.jpg') center/cover no-repeat"></div>
+<span class=badge-dark>2 h · Haputale</span>
+<div class=ex-body>
+<h4 class=ex-title>Pottery Experience — Shape Your Own Creation</h4>
+<div class=ex-meta>Wheel-throwing • Hand-building • Aprons & materials</div>
+<p class=ex-desc>Spend a calm, hands-on session with a village artisan and craft a unique clay keepsake to cherish or send home.</p>
+<div class=tags>
+<span class=tag>Wheel throwing</span>
+<span class=tag>Hand-building</span>
+<span class=tag>Make &amp; take</span>
+<span class=tag>Aprons &amp; materials</span>
+</div>
+</div>
+<div class=ex-foot>
+<div class=rating>
+<div class=stars data-rating=4.9></div>
+<span class=count data-count=96>4.9 (56)</span>
+</div>
+<a href=expottery.html class=btn-learn><i class="fa-solid fa-circle-info"></i> Learn More</a>
+</div>
+</article>
+<article class="card ex" id=ex-beekeeping>
+<div class=ex-head style="background:url('img/e13.jpg') center/cover no-repeat"></div>
+<span class=badge-dark>2 h · Bandarawela</span>
+<div class=ex-body>
+<h4 class=ex-title>Beekeeping Experience — Honey from Hive to Table</h4>
+<div class=ex-meta>Apiary visit • Extraction demo • Tasting</div>
+<p class=ex-desc>Observe skilled apiary work, learn safe handling, and enjoy fresh honey samples with light tea-time bites.</p>
+<div class=tags>
+<span class=tag>Protective gear</span>
+<span class=tag>Extraction demo</span>
+<span class=tag>Honey tasting</span>
+<span class=tag>Nature-aware</span>
+<span class=tag>Tea-time with honey</span>
+<span class=tag>Beginner friendly</span>
+</div>
+</div>
+<div class=ex-foot>
+<div class=rating>
+<div class=stars data-rating=4.9></div>
+<span class=count data-count=56>4.9 (56)</span>
+</div>
+<a href=exbee.html class=btn-learn><i class="fa-solid fa-circle-info"></i> Learn More</a>
+</div>
+</article>
+<article class="card ex" id=ex-mushroom>
+<div class=ex-head style="background:url('img/e12.jpg') center/cover no-repeat"></div>
+<span class=badge-dark>1.5 h · Bandarawela</span>
+<div class=ex-body>
+<h4 class=ex-title>Mushroom Harvest Experience — From Spawn to Table</h4>
+<div class=ex-meta>Spawn → harvest • Inoculation demo • Tasting</div>
+<p class=ex-desc>Hands-on cultivation session: prepare substrate, inoculate, observe fruiting, harvest your mushrooms, and enjoy fresh mushroom snacks.</p>
+<div class=tags>
+<span class=tag>Spawn → harvest</span>
+<span class=tag>Inoculation (hands-on)</span>
+<span class=tag>Tea-time (mushroom bites)</span>
+<span class=tag>Take-home</span>
+</div>
+</div>
+<div class=ex-foot>
+<div class=rating>
+<div class=stars data-rating=4.9></div>
+<span class=count data-count=17>4.9 (17)</span>
+</div>
+<a href=exmushroom.html class=btn-learn><i class="fa-solid fa-circle-info"></i> Learn More</a>
+</div>
+</article>
+<article class="card ex" id=ex-agri>
+<div class=ex-head style="background:url('img/e15.jpg') center/cover no-repeat"></div>
+<span class=badge-dark>4 h · Haputale</span>
+<div class=ex-body>
+<h4 class=ex-title>Agri Experience in the Hills — Plant, Harvest & Taste</h4>
+<div class=ex-meta>Hands-on farm • Seed-to-harvest • Tea &amp; short eats</div>
+<p class=ex-desc>Work alongside local farmers, learn simple organic methods, and finish the day tasting fresh produce with a warming cup of tea.</p>
+<div class=tags>
+<span class=tag>Planting &amp; care</span>
+<span class=tag>Organic methods</span>
+<span class=tag>Harvest to table</span>
+<span class=tag>Tea + snack</span>
+</div>
+</div>
+<div class=ex-foot>
+<div class=rating>
+<div class=stars data-rating=5.0></div>
+<span class=count data-count=56>5.0 (56)</span>
+</div>
+<a href=exagri.html class=btn-learn><i class="fa-solid fa-circle-info"></i> Learn More</a>
+</div>
+</article>
+<article class="card ex" id=ex-outbound>
+<div class=ex-head style="background:url('img/e17.jpg') center/cover no-repeat"></div>
+<span class=badge-dark>8h · Ebilipitiya</span>
+<div class=ex-body>
+<h4 class=ex-title>Outbound Experience — Team, Adventure & Leadership</h4>
+<div class=ex-meta>Full-day training • Water & land challenges • Safety gear included</div>
+<p class=ex-desc>Enjoy a fun lakeside day of teamwork, adventure, and guided outdoor challenges.</p>
+<div class=tags>
+<span class=tag>Water & adventure activities</span>
+<span class=tag>Adventure</span>
+<span class=tag>Water activities</span>
+<span class=tag>Lunch & tea</span>
+<span class=tag>Safety gear</span>
+<span class=tag>Night camp</span>
+</div>
+</div>
+<div class=ex-foot>
+<div class=rating>
+<div class=stars data-rating=5.0></div>
+<span class=count data-count=56>5.0 (38)</span>
+</div>
+<a href=exbound.html class=btn-learn><i class="fa-solid fa-circle-info"></i> Learn More</a>
+</div>
+</article>
 </div>
 
-<script>
-  // Mobile nav toggle
-  (function(){
-    const btn   = document.querySelector('.mnav-burger');
-    const sheet = document.getElementById('mnav-drawer');
-    const scrim = document.querySelector('.mnav-scrim');
-    if(!btn || !sheet) return;
-
-    function closeMenu(){
-      sheet.setAttribute('data-open','false'); sheet.hidden = true;
-      scrim.setAttribute('data-open','false'); scrim.hidden = true;
-      btn.setAttribute('aria-expanded','false');
-    }
-    function openMenu(){
-      sheet.hidden = false; scrim.hidden = false;
-      sheet.setAttribute('data-open','true'); scrim.setAttribute('data-open','true');
-      btn.setAttribute('aria-expanded','true');
-    }
-
-    btn.addEventListener('click', () => (sheet.hidden ? openMenu() : closeMenu()));
-    scrim && scrim.addEventListener('click', closeMenu);
-    sheet.addEventListener('click', e => { if(e.target.tagName === 'A') closeMenu(); });
-  })();
-</script>
-
-<script>
-/* ========== Experience hero JS ========== */
-
-/* 1) simple typewriter that cycles phrases */
-(function() {
-  const el = document.getElementById('expTypewriter');
-  if (!el) return;
-  const phrases = JSON.parse(el.getAttribute('data-text'));
-  let idx = 0, char = 0, forward = true;
-
-  function tick() {
-    const txt = phrases[idx];
-    if (forward) {
-      char++;
-      el.textContent = txt.slice(0, char);
-      if (char >= txt.length) { forward = false; setTimeout(tick, 1200); return; }
-    } else {
-      char--;
-      el.textContent = txt.slice(0, char);
-      if (char <= 0) { forward = true; idx = (idx+1) % phrases.length; setTimeout(tick, 250); return; }
-    }
-    setTimeout(tick, forward ? 40 : 24);
-  }
-  // append caret
-  const caret = document.createElement('span'); caret.className = 'caret'; el.appendChild(caret);
-  setTimeout(tick, 500);
-})();
-
-/* 2) lazy load hero images (data-src attr) */
-(function() {
-  const imgs = document.querySelectorAll('.img-card img[data-src]');
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver((entries, obs) => {
-      entries.forEach(e => {
-        if (!e.isIntersecting) return;
-        const img = e.target;
-        img.src = img.dataset.src;
-        img.removeAttribute('data-src');
-        obs.unobserve(img);
-      });
-    }, { rootMargin: '200px' });
-    imgs.forEach(i => io.observe(i));
-  } else {
-    imgs.forEach(i => { i.src = i.dataset.src; });
-  }
-})();
-
-/* 3) gentle parallax on mouse for image-stack */
-(function(){
-  const stack = document.querySelector('.exp-image-stack');
-  if (!stack) return;
-  const move = (e) => {
-    const rect = stack.getBoundingClientRect();
-    const cx = rect.left + rect.width/2;
-    const cy = rect.top + rect.height/2;
-    const dx = (e.clientX - cx) / rect.width;
-    const dy = (e.clientY - cy) / rect.height;
-    document.querySelectorAll('.img-card').forEach((card, i) => {
-      const depth = (i+1) * 6;
-      card.style.transform = `translate3d(${dx * depth}px, ${dy * depth}px, 0) rotate(${(i%2?1:-1)*(dx*4)}deg)`;
-    });
-  };
-  stack.addEventListener('mousemove', move);
-  stack.addEventListener('mouseleave', () => {
-    document.querySelectorAll('.img-card').forEach(card => card.style.transform = '');
-  });
-})();
-
-/* 4) lightweight particle background (canvas) */
-(function(){
-  const canvas = document.getElementById('expParticleCanvas');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  let w = canvas.width = canvas.offsetWidth;
-  let h = canvas.height = canvas.offsetHeight;
-  const N = Math.max(18, Math.floor((w*h)/90000));
-  const particles = [];
-  for (let i=0;i<N;i++){
-    particles.push({
-      x: Math.random()*w,
-      y: Math.random()*h,
-      r: 0.8 + Math.random()*2.2,
-      vx: (Math.random()-0.5)*0.2,
-      vy: -0.15 - Math.random()*0.15,
-      alpha: 0.05 + Math.random()*0.12
-    });
-  }
-  function resize(){
-    w = canvas.width = canvas.offsetWidth;
-    h = canvas.height = canvas.offsetHeight;
-  }
-  window.addEventListener('resize', resize);
-
-  function draw(){
-    ctx.clearRect(0,0,w,h);
-    particles.forEach(p => {
-      p.x += p.vx; p.y += p.vy;
-      if (p.y + p.r < 0) { p.y = h + 10; p.x = Math.random()*w; }
-      if (p.x < -10) p.x = w + 10;
-      if (p.x > w +10) p.x = -10;
-      ctx.beginPath();
-      ctx.fillStyle = `rgba(30,142,90, ${p.alpha})`;
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
-      ctx.fill();
-    });
-    requestAnimationFrame(draw);
-  }
-  // start
-  draw();
-})();
-
-/* 5) adaptive SVG wave path (subtle motion by path morph) */
-(function(){
-  const w1 = document.getElementById('wave1');
-  const w2 = document.getElementById('wave2');
-  if (!w1 || !w2) return;
-
-  function wavePath(offset, amp, freq){
-    const width = 1440;
-    const height = 160;
-    const points = 6;
-    let d = `M0 ${height/2}`;
-    for (let i=0;i<=points;i++){
-      const x = (i/points) * width;
-      const y = height/2 + Math.sin((i/points)*Math.PI*2 + offset) * (amp * (1 - Math.abs((i/points)-0.5)));
-      d += ` L ${x} ${y}`;
-    }
-    d += ` L ${width} ${height} L 0 ${height} Z`;
-    return d;
-  }
-
-  let t = 0;
-  function anim(){
-    t += 0.01;
-    w1.setAttribute('d', wavePath(t, 28, 1.2));
-    w2.setAttribute('d', wavePath(t+1.7, 44, 0.9));
-    requestAnimationFrame(anim);
-  }
-  anim();
-})();
-</script>
-<script>
-(function(){
-  // Adjust these to match your markup if needed:
-  const navSelector = document.querySelector('.site-nav') || document.querySelector('header') || null;
-  const hero = document.querySelector('.exp-hero');
-  if (!hero) return;
-
-  // how much extra gap you want under nav (in px)
-  const extraGap = 24;
-
-  function applyHeroSizing() {
-    // If nav exists and is fixed (position:fixed or position:sticky handled visually),
-    // compute remaining viewport space and set hero height.
-    if (navSelector) {
-      const navRect = navSelector.getBoundingClientRect();
-      const navVisibleHeight = navRect.height;
-      // Compute height as 100vh minus nav height minus extraGap
-      const newHeight = `calc(100vh - ${navVisibleHeight + extraGap}px)`;
-      // only apply on desktop widths
-      if (window.innerWidth >= 980) {
-        hero.style.height = newHeight;
-        hero.style.marginTop = `${Math.max(8, extraGap/2)}px`; // small outside gap
-      } else {
-        hero.style.height = '';
-        hero.style.minHeight = '60vh';
-        hero.style.marginTop = '';
-      }
-    } else {
-      // no nav: ensure comfortable min-height on desktop
-      if (window.innerWidth >= 980) {
-        hero.style.height = 'calc(100vh - 40px)';
-      } else {
-        hero.style.height = '';
-      }
-    }
-  }
-
-  // initial
-  applyHeroSizing();
-
-  // update on resize (throttled)
-  let rt;
-  window.addEventListener('resize', function(){
-    if (rt) cancelAnimationFrame(rt);
-    rt = requestAnimationFrame(applyHeroSizing);
-  });
-
-  // also update when fonts/images load (ensures correct nav height)
-  window.addEventListener('load', applyHeroSizing);
-  // if nav height might change (mobile menu), observe it
-  if (navSelector && 'ResizeObserver' in window) {
-    new ResizeObserver(applyHeroSizing).observe(navSelector);
-  }
-})();
-
-(function () {
-  const WA_DEFAULT = '+94783676022'; // fallback number (E.164)
-  const waRoot = document.getElementById('wa');
-  if (!waRoot) return;
-
-  const fab = waRoot.querySelector('.fab');
-  const panel = waRoot.querySelector('.panel');
-
-  // helper to get number (try page helper then fallback)
-  function getDigits() {
-    try {
-      if (typeof window.getFullWhatsApp === 'function') {
-        const n = window.getFullWhatsApp();
-        if (n) return n.replace(/\D/g, '');
-      }
-    } catch (e) {}
-    return WA_DEFAULT.replace(/\D/g, '');
-  }
-
-  // toggle panel open state
-  function toggle(open) {
-    const shouldOpen = typeof open === 'boolean' ? open : !waRoot.classList.contains('open');
-    waRoot.classList.toggle('open', shouldOpen);
-    if (fab) fab.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
-    if (panel) panel.setAttribute('aria-hidden', shouldOpen ? 'false' : 'true');
-  }
-
-  // open app/web with contextual message
-  function openChatDefault() {
-    const title = document.querySelector('h1')?.textContent?.trim() || document.title || 'BeCeylon';
-    const msg = encodeURIComponent(`Hi BeCeylon! I have a question about "${title}".`);
-    const digits = getDigits();
-    const appUrl = `whatsapp://send?phone=${digits}&text=${msg}`;
-    const webUrl = `https://wa.me/${digits}?text=${msg}`;
-
-    // try app deep-link first; fall back to web link
-    const opened = window.open(appUrl, '_blank', 'noopener,noreferrer');
-    if (!opened || opened.closed) {
-      window.open(webUrl, '_blank', 'noopener,noreferrer');
-    }
-  }
-
-  // fab click: prefer opening the app (quick) — but also toggle panel on long press / second click
-  let clickTimeout = null;
-// --- Replace existing fab click/contextmenu handlers with this ---
-// Left or right mouse button opens the WA panel (toggle) instead of launching WhatsApp
-fab.addEventListener('mousedown', function (e) {
-  // only handle primary (0) and secondary/right (2) buttons
-  if (e.button === 0 || e.button === 2) {
-    e.preventDefault();
-    e.stopPropagation();
-    toggle(true); // open panel
-  }
-}, { passive: false });
-
-// prevent default browser menu on right-click and ensure panel opens
-fab.addEventListener('contextmenu', function (e) {
-  e.preventDefault();
-  e.stopPropagation();
-  toggle(true);
-});
-
-  // close when clicking outside panel
-  document.addEventListener('click', function (e) {
-    if (!waRoot.contains(e.target)) toggle(false);
-  }, { passive: true });
-
-  // close on Escape
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') toggle(false);
-  });
-
-  // make chips open in new tab (already have href target="_blank") — no extra JS needed.
-})();
-</script>
-
+</section>
+<br><br><br><br>
+<section class="container reveal">
+<div class=cta>
+<h3 style="margin:0 0 8px">Discover. Immerse. Belong.</h3>
+<p style="margin:0 0 14px;color:var(--muted)">Start your curated journey with Beceylon — or build your own package from our experiences.</p>
+<a href=error.html class="btn btn-primary"><i class="fa-solid fa-hammer"></i> Build Your Package</a>
+</div>
+</section>
+<br><br>
+<footer id=footer-beceylon>
+<div class=footer-cta-wrap>
+<div class="container footer-cta">
+<div class=cta-text>
+<h3>Join Our Community 🔥</h3>
+<p>Receive exclusive stories, travel tips, and member-only offers directly from Uva.</p>
+</div>
+<form class=cta-form onsubmit=return!1>
+<input type=email placeholder="Enter your email address" aria-label="Email address" required>
+<button type=submit aria-label=Subscribe>
+<span>Subscribe</span>
+<i class="fa-solid fa-arrow-right"></i>
+</button>
+</form>
+</div>
+</div>
+<div class=footer-main>
+<div class="container footer-grid">
+<div class=footer-col>
+<p class=footer-tagline>
+Real Uva, hosted by locals—tea hills, village paths, river valleys. Your trip supports families and living traditions.
+</p>
+<p class=footer-tagline>
+Small groups, light footprints—sunrise hikes, farm-to-table meals, wellness pauses. Fair pricing, 24/7 support.
+</p>
+</div>
+<div class=footer-col>
+<h4>Explore</h4>
+<ul class=footer-links>
+<li><a href=#experiences>Experiences</a></li>
+<li><a href=error.html>Packages</a></li>
+<li><a href=error.html>Loyalty Program</a></li>
+<li><a href=error.html>Gallery</a></li>
+</ul>
+</div>
+<div class=footer-col>
+<h4>Contact</h4>
+<ul class="footer-links contact-info">
+<li><a href=tel:+94783676022><i class="fa-solid fa-phone"></i> +94 78 367 6022</a></li>
+<li><a href=mailto:contact@beceylon.lk><i class="fa-solid fa-envelope"></i> contact@beceylon.lk</a></li>
+<li><a href=https://wa.me/94783676022 target=_blank rel=noopener>
+<i class="fa-brands fa-whatsapp"></i> WhatsApp</a></li>
+</ul>
+</div>
+<div class=footer-col>
+<h4>Follow Us</h4>
+<div class=footer-social>
+<a href="https://www.instagram.com/be_ceylon?igsh=MW14czFuNXkwaXB1aw==" aria-label=Instagram target=_blank rel=noopener><i class="fa-brands fa-instagram"></i></a>
+<a href=https://www.facebook.com/share/1Uv3PZpyxm/ aria-label=Facebook target=_blank rel=noopener><i class="fa-brands fa-facebook-f"></i></a>
+<a href="https://www.tiktok.com/@be.ceylon?_r=1&_t=ZS-91QT75J0aVm" aria-label=Tiktok target=_blank rel=noopener><i class="fa-brands fa-tiktok"></i></a>
+</div>
+</div>
+</div>
+</div>
+<div class=footer-bottom>
+<div class=container>
+<p>© 2025 Beceylon. All rights reserved.</p>
+</div>
+</div>
+</footer>
+<div class=wa id=wa aria-hidden=false>
+<div class=fab id=wa-fab role=button aria-label="Chat on WhatsApp" aria-expanded=false>
+<i class="fa-brands fa-whatsapp" aria-hidden=true></i>
+</div>
+<div class=panel id=wa-panel role=dialog aria-label="WhatsApp chat panel" aria-hidden=true>
+<header>Chat with us on WhatsApp</header>
+<div class=body>
+<p class=muted style=margin-top:0>Ask anything — we usually reply in minutes.</p>
+<div class=wa-chips>
+<a class=chip href="https://wa.me/94783676022?text=Hi!%20I%27m%20interested%20in%20the%20Beekeeping%20Experience.%20Can%20you%20share%20the%20full%20itinerary%3F" target=_blank rel=noopener>Experiences</a>
+<a class=chip href="https://wa.me/94783676022?text=Hi!%20Is%20protective%20gear%20provided%3F%20What%20should%20we%20bring%3F" target=_blank rel=noopener>Packages</a>
+<a class=chip href="https://wa.me/94783676022?text=Hi!%20Do%20you%20provide%20honey%20samples%20to%20take%20home%3F" target=_blank rel=noopener>About Us</a>
+<a class=chip href="https://wa.me/94783676022?text=Hi!%20Open%20chat" target=_blank rel=noopener>Open chat</a>
+</div>
+</div>
+</div>
+</div>
+<script>!function(){const e=document.querySelector(".mnav-burger"),t=document.getElementById("mnav-drawer"),d=document.querySelector(".mnav-scrim");function n(){t.setAttribute("data-open","false"),t.hidden=!0,d.setAttribute("data-open","false"),d.hidden=!0,e.setAttribute("aria-expanded","false")}e&&t&&(e.addEventListener("click",(()=>t.hidden?(t.hidden=!1,d.hidden=!1,t.setAttribute("data-open","true"),d.setAttribute("data-open","true"),void e.setAttribute("aria-expanded","true")):n())),d&&d.addEventListener("click",n),t.addEventListener("click",(e=>{"A"===e.target.tagName&&n()})))}()</script>
+<script>!function(){const t=document.getElementById("expTypewriter");if(!t)return;const e=JSON.parse(t.getAttribute("data-text"));let n=0,r=0,o=!0;const a=document.createElement("span");a.className="caret",t.appendChild(a),setTimeout((function a(){const i=e[n];if(o){if(r++,t.textContent=i.slice(0,r),r>=i.length)return o=!1,void setTimeout(a,1200)}else if(r--,t.textContent=i.slice(0,r),r<=0)return o=!0,n=(n+1)%e.length,void setTimeout(a,250);setTimeout(a,o?40:24)}),500)}(),function(){const t=document.querySelectorAll(".img-card img[data-src]");if("IntersectionObserver"in window){const e=new IntersectionObserver(((t,e)=>{t.forEach((t=>{if(!t.isIntersecting)return;const n=t.target;n.src=n.dataset.src,n.removeAttribute("data-src"),e.unobserve(n)}))}),{rootMargin:"200px"});t.forEach((t=>e.observe(t)))}else t.forEach((t=>{t.src=t.dataset.src}))}(),function(){const t=document.querySelector(".exp-image-stack");if(!t)return;t.addEventListener("mousemove",(e=>{const n=t.getBoundingClientRect(),r=n.left+n.width/2,o=n.top+n.height/2,a=(e.clientX-r)/n.width,i=(e.clientY-o)/n.height;document.querySelectorAll(".img-card").forEach(((t,e)=>{const n=6*(e+1);t.style.transform=`translate3d(${a*n}px, ${i*n}px, 0) rotate(${4*a*(e%2?1:-1)}deg)`}))})),t.addEventListener("mouseleave",(()=>{document.querySelectorAll(".img-card").forEach((t=>t.style.transform=""))}))}(),function(){const t=document.getElementById("expParticleCanvas");if(!t)return;const e=t.getContext("2d");let n=t.width=t.offsetWidth,r=t.height=t.offsetHeight;const o=Math.max(18,Math.floor(n*r/9e4)),a=[];for(let t=0;t<o;t++)a.push({x:Math.random()*n,y:Math.random()*r,r:.8+2.2*Math.random(),vx:.2*(Math.random()-.5),vy:-.15-.15*Math.random(),alpha:.05+.12*Math.random()});window.addEventListener("resize",(function(){n=t.width=t.offsetWidth,r=t.height=t.offsetHeight})),function t(){e.clearRect(0,0,n,r),a.forEach((t=>{t.x+=t.vx,t.y+=t.vy,t.y+t.r<0&&(t.y=r+10,t.x=Math.random()*n),t.x<-10&&(t.x=n+10),t.x>n+10&&(t.x=-10),e.beginPath(),e.fillStyle=`rgba(30,142,90, ${t.alpha})`,e.arc(t.x,t.y,t.r,0,2*Math.PI),e.fill()})),requestAnimationFrame(t)}()}(),function(){const t=document.getElementById("wave1"),e=document.getElementById("wave2");if(!t||!e)return;function n(t,e,n){let r="M0 80";for(let n=0;n<=6;n++){r+=` L ${n/6*1440} ${80+Math.sin(n/6*Math.PI*2+t)*(e*(1-Math.abs(n/6-.5)))}`}return r+=" L 1440 160 L 0 160 Z",r}let r=0;!function o(){r+=.01,t.setAttribute("d",n(r,28)),e.setAttribute("d",n(r+1.7,44)),requestAnimationFrame(o)}()}()</script>
+<script>!function(){const e=document.querySelector(".site-nav")||document.querySelector("header")||null,t=document.querySelector(".exp-hero");if(!t)return;function n(){if(e){const n=`calc(100vh - ${e.getBoundingClientRect().height+24}px)`;window.innerWidth>=980?(t.style.height=n,t.style.marginTop=`${Math.max(8,12)}px`):(t.style.height="",t.style.minHeight="60vh",t.style.marginTop="")}else window.innerWidth>=980?t.style.height="calc(100vh - 40px)":t.style.height=""}let i;n(),window.addEventListener("resize",(function(){i&&cancelAnimationFrame(i),i=requestAnimationFrame(n)})),window.addEventListener("load",n),e&&"ResizeObserver"in window&&new ResizeObserver(n).observe(e)}(),function(){const e=document.getElementById("wa");if(!e)return;const t=e.querySelector(".fab"),n=e.querySelector(".panel");function i(i){const o="boolean"==typeof i?i:!e.classList.contains("open");e.classList.toggle("open",o),t&&t.setAttribute("aria-expanded",o?"true":"false"),n&&n.setAttribute("aria-hidden",o?"false":"true")}t.addEventListener("mousedown",(function(e){0!==e.button&&2!==e.button||(e.preventDefault(),e.stopPropagation(),i(!0))}),{passive:!1}),t.addEventListener("contextmenu",(function(e){e.preventDefault(),e.stopPropagation(),i(!0)})),document.addEventListener("click",(function(t){e.contains(t.target)||i(!1)}),{passive:!0}),document.addEventListener("keydown",(function(e){"Escape"===e.key&&i(!1)}))}()</script>
 </body>
 </html>
 </document_content>
